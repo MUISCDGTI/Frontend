@@ -1,14 +1,14 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Card, List, Avatar, Space } from 'antd';
+import { Card, List, Avatar, Space, Button } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 const Noticias = () => {
     const newsList = [];
 
     newsList.push({
-        href: 'https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg',
+        href: './news/id',
         title: `Luces y sombras del segundo final de La casa de papel`,
         avatar: 'https://joeschmoe.io/api/v1/random',
         description:
@@ -67,6 +67,8 @@ const Noticias = () => {
                             description={item.description}
                         />
                         {item.content}
+                        <Button type="primary" >Editar</Button>  &nbsp;&nbsp;
+                        <Button type="primary" danger="True">Eliminar</Button>
                     </List.Item>
                 )}
             />
