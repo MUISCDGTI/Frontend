@@ -4,6 +4,7 @@ import './index.css';
 import { Layout, Breadcrumb } from 'antd';
 import Noticias from '../components/news';
 import CustomHeader from '../components/header';
+import NewsItem from '../components/news/newsItem';
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,7 +22,7 @@ const NewsList = () => {
                 </Breadcrumb>
                 <div className="site-layout-content">
                     <h1> Lista de noticias </h1>
-                    <Noticias />
+                    <NewsItem />
                     </div>
                 
             </Content>

@@ -15,6 +15,7 @@ const Noticias = () => {
             'La serie se despide convertida en el mayor éxito global de la ficción televisiva española',
         content:
             '',
+        url: 'https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg',
     })
 
     for (let i = 0; i < 23; i++) {
@@ -26,6 +27,8 @@ const Noticias = () => {
                 'La serie se despide convertida en el mayor éxito global de la ficción televisiva española',
             content:
                 '',
+            url:
+                'https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg',
         });
     }
 
@@ -57,7 +60,7 @@ const Noticias = () => {
                             <img
                                 width={272}
                                 alt="logo"
-                                src="https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg"
+                                src={item.url}
                             />
                         }
                     >
@@ -76,5 +79,7 @@ const Noticias = () => {
         </div>
     );
 }
+
+
 
 export default Noticias;
