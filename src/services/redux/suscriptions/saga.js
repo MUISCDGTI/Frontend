@@ -18,7 +18,7 @@ import {
   } from './types';
   import Suscription from '../../../models/Suscription';
   
-  function* getSuscriptions() {
+  function* getSuscriptions({ payload }) {
     yield callToApi(({
       apiCall: Api.getSuscriptions,
       successResponseCode: 200,
@@ -27,6 +27,7 @@ import {
         const suscriptions = data.map((d) => new Suscription(d));
         yield put({ type: GET_SUSCRIPTIONS_SUCCESS, payload: suscriptions });
       },
+      payload,
     }));
   }
   

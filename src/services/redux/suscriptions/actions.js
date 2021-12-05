@@ -6,8 +6,9 @@ import {
     UPDATE_SUSCRIPTION_REQUEST,
   } from './types';
   
-  const getSuscriptions = () => ({
+  const getSuscriptions = (payload) => ({
     type: GET_SUSCRIPTIONS_REQUEST,
+    payload,
   });
   
   const createSuscription = (payload) => ({

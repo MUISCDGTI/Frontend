@@ -28,17 +28,17 @@ const EtiquetaGenero = ({
     }, [deleteSuscription, checked]);
 
     useEffect(() => {
-        getSuscriptions();
+        getSuscriptions('rottenpotatoesgrupo3fis@gmail.com');
     }, [getSuscriptions, checked]);
-    /*
+    
     useEffect(() => {
         console.info(suscriptions);
-        if (suscriptions[valor]){
+        /*if (suscriptions[valor]){
             setChecked(true);
         }else{
             setChecked(false);
-        }
-    }, [suscriptions, setChecked, valor]);*/
+        }*/
+    }, [suscriptions, setChecked, valor]);
     
     return (
         <div>
