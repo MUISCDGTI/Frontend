@@ -17,7 +17,7 @@ const EtiquetaGenero = ({
 
     useEffect(() => {
         if (checked){
-            createSuscription({subject: valor});
+            createSuscription({subject: valor, mail: 'rottenpotatoesgrupo3fis@gmail.com'});
         }
     }, [createSuscription, checked]);
 
