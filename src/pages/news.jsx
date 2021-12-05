@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Layout, Breadcrumb } from 'antd';
 import Noticias from '../components/news';
 import CustomHeader from '../components/header';
 import NewsItem from '../components/news/newsItem';
+import NewsApi from '../NewsApi';
 
 const { Header, Content, Footer } = Layout;
 
 const NewsList = () => {
+
+/*
+    const[newsList, setNewsList] = useState([]);
+
+    useEffect{() => {
+        async function fetchNewsList() {
+            try {
+            const n = await NewsApi.getAllNews();
+            setNewsList(newsList);
+            } catch(error) {
+                setMessage('No se pudo contactar con el servidor');
+            }
+        }
+    }, []};
+*/
+
     return (
         <Layout className="layout">
             <Header>
@@ -22,7 +39,7 @@ const NewsList = () => {
                 </Breadcrumb>
                 <div className="site-layout-content">
                     <h1> Lista de noticias </h1>
-                    <NewsItem />
+                    <Noticias />
                     </div>
                 
             </Content>

@@ -13,7 +13,7 @@ function Router() {
                 <Routes>
                     <Route path="/" element={<MainPage/>}>
                     </Route>
-                    <Route path="/news/list" element={<NewsList/>}>
+                    <Route path="/news" element={<NewsList/>}>
                     </Route>
                 </Routes>
             </div>
