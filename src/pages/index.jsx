@@ -4,6 +4,7 @@ import './index.css';
 import { Layout, Breadcrumb } from 'antd';
 import Noticias from '../components/noticias';
 import CustomHeader from '../components/header';
+import EtiquetaGenero from '../components/etiquetaGenero';
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,6 +22,10 @@ const MainPage = () => {
                 </Breadcrumb>
                 <div className="site-layout-content">Content</div>
                 <Noticias />
+                <EtiquetaGenero valor='Comedia' />
+                <EtiquetaGenero valor='Drama' />
+                <EtiquetaGenero valor='Terror' />
+                <EtiquetaGenero valor='Informatica' />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
