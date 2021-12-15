@@ -12,13 +12,21 @@ class NewsApi {
             headers: headers
         });
 
-        const response = await fetch(request);
+    /* CLASSES
+            return fetch(request).then(response => {
+                return response.json();
+            });
+    */
+        
 
+        const response = await fetch(request);
+        
         if(! response.ok){
             throw Error('Respuesta no válida ' + response.status);
         }
-
+        
         return response.json();
+
     }
 }
 
