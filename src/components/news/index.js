@@ -1,12 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Card, List, Avatar, Space, Button } from 'antd';
+import { Card, List, Avatar, Space, Button, Alert } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import Item from 'antd/lib/list/Item';
+import NewsApi from '../../NewsApi.js';
 
-const Noticias = () => {
+function Noticias(props) {
 
+    /*
+    const [newsList, setNewsList] = useState([]);
+
+    //Se ejecuta una sola vez, no cada vez que se cambia el estado
+    useEffect(() => {
+
+        async function fetchNewsList() {
+            try {
+                const n = NewsApi.getAllNews();
+                setNewsList(n);
+            } catch (error){
+    //            setMessage('No se pudo contactar con el servidor');
+                console.log(error);
+            }
+        }
+        fetchNewsList();
+    }, []);
+    */
+
+    function onNewsEdit(noticia){
+        setMessage(noticia.title);
+    }
+
+    
     const newsList = [];
 
     newsList.push({
@@ -22,7 +47,7 @@ const Noticias = () => {
 
     for (let i = 0; i < 23; i++) {
         newsList.push({
-            href: 'https://ant.design',
+            href: './news/id',
             title: `Luces y sombras del segundo final de La casa de papel`,
             avatar: 'https://joeschmoe.io/api/v1/random',
             description:
@@ -33,6 +58,9 @@ const Noticias = () => {
                 'https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg',
         });
     }
+    
+
+   
 
     const IconText = ({ icon, text }) => (
         <Space>
@@ -41,9 +69,22 @@ const Noticias = () => {
         </Space>
     );
 
+    const [message, setMessage] = useState("TESTING TESTING");
+
+    function onAlertClose() {
+        setMessage(null);
+    }
+
+    const onClose = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        console.log(e, 'I was closed.');
+    };
 
     return (
-        <div>
+        <Fragment>
+            <Alert type="warning" message={message} closable onClose={onClose}/>
+            <button onClick={() => onAlertClose()}>
+                x
+            </button>
             <List
                 itemLayout="vertical"
                 size="large"
@@ -72,14 +113,14 @@ const Noticias = () => {
                             description={item.description}
                         />
                         {item.content.length > 400 ? (<p>{item.content.substring(0,400).concat('...')}</p>) : (<p>{item.content}</p>)}
-                        <Button type="primary" >Editar</Button>  &nbsp;&nbsp;
-                        <Button type="primary" danger="True">Eliminar</Button>
+                        <Button type="primary" onClick={() => onNewsEdit(item)}>Editar</Button>  &nbsp;&nbsp;
+                        <Button type="primary" danger="True" onClick={() => props.onDelete(props.news)}>Eliminar</Button>
                     </List.Item>
                 )
             }
             />
 
-        </div>
+        </Fragment>
     );
 }
 
