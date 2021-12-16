@@ -7,13 +7,14 @@ import NewsList from '../pages/news';
 
 
 function Router() {
+
     return (
         <BrowserRouter>
             <div>
                 <Routes>
                     <Route path="/" element={<MainPage/>}>
                     </Route>
-                    <Route path="/news" element={<NewsList/>}>
+                    <Route path="/news" element={<NewsList />}>
                     </Route>
                 </Routes>
             </div>
