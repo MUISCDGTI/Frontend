@@ -39,7 +39,6 @@ const NewsList = () => {
                     <Breadcrumb.Item>App</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="site-layout-content">
-                    <h1> Lista de noticias </h1>
                     <Noticias newsList={newsList} />
                     </div>
                 

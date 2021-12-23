@@ -1,11 +1,12 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Card, List, Avatar, Space, Button, Alert } from 'antd';
+import { Typography, List, Avatar, Space, Button, Alert } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import Item from 'antd/lib/list/Item';
 import NewsApi from '../../NewsApi.js';
 import CreateNews from './CreateNews.js';
+import { type } from 'os';
 
 function Noticias(props) {
 
@@ -64,15 +65,29 @@ function Noticias(props) {
 
     const [message, setMessage] = useState("");
 
-    const [createEscondido, setCreateEscondido] = useState("true");
+    const [createEscondido, setCreateEscondido] = useState("false");
+
+    const [isShow, setIsShow] = useState("true");
+
+
+    const handleClick = () => {
+        setIsShow(!isShow);
+    };
+
+    const { Text, Title } = Typography;
 
 
 
     function onAddNews(noticia) {
         noticia.avatar = "https://joeschmoe.io/api/v1/random"
         noticia.href = "./news/id"
-        noticia.content = "CONTENIDO DE PRUEBA"
-        noticia.url = "https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg";
+        noticia.author = "Periquito Pérez"
+        var hoy = new Date();
+        noticia.createdAt = hoy.getDay() + " de " + hoy.toLocaleString('default', { month: 'long' }) + " del " 
+            + hoy.getFullYear() + " a las " + hoy.getHours() + ":" + hoy.getMinutes();
+//      noticia.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eleifend lacus auctor feugiat auctor. Morbi scelerisque velit eu tempus aliquet. Maecenas vitae ex urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam vel gravida elit. Nam ac lectus id justo tempus dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque luctus aliquam arcu eu egestas. Sed sodales ante vitae leo tempus vestibulum. Vestibulum urna tellus, fermentum id nunc nec, imperdiet tincidunt neque. Nulla tincidunt ligula eget imperdiet viverra. Vivamus placerat aliquam risus in rutrum. In sed dolor metus. Vestibulum nec sodales sem. Cras pretium fermentum egestas. Vivamus eget metus in dolor scelerisque molestie sed at nisi. Phasellus commodo tristique mauris quis auctor. Quisque ultricies neque felis, sit amet accumsan mauris mollis mollis. Donec vel metus sed lacus consequat fringilla. Nunc ac luctus ante. Donec et massa dapibus, viverra nibh vitae, ullamcorper ipsum. Integer interdum libero ac metus ultrices dignissim. Donec sit amet urna nec eros sagittis ultrices vehicula sollicitudin orci. Quisque et vulputate magna. Nulla auctor, libero eu consectetur tempor, ante lacus fermentum lectus, ut sagittis urna massa eu lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio est, efficitur et lectus eu, dapibus interdum ex. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse a justo non erat lacinia maximus ut et velit. Nulla facilisi. Nunc sagittis magna quis porttitor fringilla. Donec pretium orci ut tristique lacinia. Maecenas ultricies ipsum non condimentum sagittis. Phasellus elementum tincidunt consequat. Curabitur in risus ultrices, bibendum tortor nec, consectetur nibh. Mauris eget enim pretium enim ultrices dignissim. Integer fringilla non lorem ac consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse mollis lacus quis nisl luctus consectetur. Nulla facilisi. Vivamus at leo sed nibh eleifend sagittis. Donec molestie iaculis nulla vel ornare. Fusce sodales, ipsum a auctor vestibulum, ante est blandit ante, et convallis purus purus congue ex. Vivamus a finibus sapien, at ultricies ex. Ut ornare mauris velit, et venenatis justo tincidunt sit amet."
+//        noticia.text = "NOTICIA TEXT TEST"
+//        noticia.url = "https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg";
         if (noticia.title === ''){
             setMessage('El título no debe estar vacío');
             return false;
@@ -103,8 +118,6 @@ function Noticias(props) {
         setMessage(noticia.title);
     }
 
-
-
     const IconText = ({ icon, text }) => (
         <Space>
             {React.createElement(icon)}
@@ -112,22 +125,19 @@ function Noticias(props) {
         </Space>
     );
 
-
     function onAlertClose() {
         setMessage(null);
     }
-
- 
-
-
-    return (
+    
+     return (
         <Fragment>
-            <Alert type="warning" message={message} closable showIcon 
-            //onClose={onClose}
-            />
+            <Title level={2}>Lista de noticias</Title>
+
             <button onClick={() => onAlertClose()}>
                 x
             </button>
+
+
             <List
                 itemLayout="vertical"
                 size="large"
@@ -146,7 +156,7 @@ function Noticias(props) {
                             <img
                                 width={272}
                                 alt="logo"
-                                src={item.url}
+                                src={item.urlImagen}
                             />
                         }
                     >
@@ -155,18 +165,37 @@ function Noticias(props) {
                             title={<a href={item.href}>{item.title}</a>}
                             description={item.description}
                         />
-                        {item.content.length > 400 ? (<p>{item.content.substring(0,400).concat('...')}</p>) : (<p>{item.content}</p>)}
+                        {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
+                        
+                        {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
                         <Button type="primary" onClick={() => onNewsEdit(item)}>Editar</Button>  &nbsp;&nbsp;
                         <Button type="primary" danger="True" onClick={() => onNewsDelete2(item)}>Eliminar</Button>
                     </List.Item>
                 )
             }
             />
+ 
+            <Button type="default" onClick={handleClick}> Escribir nueva noticia </Button>
             
-            {createEscondido}
-            <CreateNews onAddNews={onAddNews}/>
 
+            <>{ message ==='' ?
+                <></>
+                :
+                <><br/><br/>
+                <Alert type="warning" message={message}  showIcon 
+                //onClose={onClose}
+                /></>
+            
+            
+            }</>
 
+            <>{isShow ?            
+                <></>
+                :
+                <CreateNews onAddNews={onAddNews}/>
+                }
+                
+            </>
         </Fragment>
     );
 }
