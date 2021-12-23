@@ -69,9 +69,22 @@ function Noticias(props) {
 
     const [isShow, setIsShow] = useState("true");
 
+    const [isShowEdit, setIsShowEdit] = useState("false");
+
+    const [noticiaEditada, setIsNoticiaEditada] = useState();
 
     const handleClick = () => {
         setIsShow(!isShow);
+    };
+
+    const handleClickEdit = (tituloNoticia) => {
+        setIsShowEdit(!isShowEdit);
+        console.log("EOEOEOEOEEOOE");
+        console.log(tituloNoticia);
+        tituloNoticia = "hardcode";
+        console.log(tituloNoticia);
+        setIsNoticiaEditada(tituloNoticia);
+
     };
 
     const { Text, Title } = Typography;
@@ -88,24 +101,51 @@ function Noticias(props) {
 //      noticia.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eleifend lacus auctor feugiat auctor. Morbi scelerisque velit eu tempus aliquet. Maecenas vitae ex urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam vel gravida elit. Nam ac lectus id justo tempus dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque luctus aliquam arcu eu egestas. Sed sodales ante vitae leo tempus vestibulum. Vestibulum urna tellus, fermentum id nunc nec, imperdiet tincidunt neque. Nulla tincidunt ligula eget imperdiet viverra. Vivamus placerat aliquam risus in rutrum. In sed dolor metus. Vestibulum nec sodales sem. Cras pretium fermentum egestas. Vivamus eget metus in dolor scelerisque molestie sed at nisi. Phasellus commodo tristique mauris quis auctor. Quisque ultricies neque felis, sit amet accumsan mauris mollis mollis. Donec vel metus sed lacus consequat fringilla. Nunc ac luctus ante. Donec et massa dapibus, viverra nibh vitae, ullamcorper ipsum. Integer interdum libero ac metus ultrices dignissim. Donec sit amet urna nec eros sagittis ultrices vehicula sollicitudin orci. Quisque et vulputate magna. Nulla auctor, libero eu consectetur tempor, ante lacus fermentum lectus, ut sagittis urna massa eu lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus odio est, efficitur et lectus eu, dapibus interdum ex. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse a justo non erat lacinia maximus ut et velit. Nulla facilisi. Nunc sagittis magna quis porttitor fringilla. Donec pretium orci ut tristique lacinia. Maecenas ultricies ipsum non condimentum sagittis. Phasellus elementum tincidunt consequat. Curabitur in risus ultrices, bibendum tortor nec, consectetur nibh. Mauris eget enim pretium enim ultrices dignissim. Integer fringilla non lorem ac consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse mollis lacus quis nisl luctus consectetur. Nulla facilisi. Vivamus at leo sed nibh eleifend sagittis. Donec molestie iaculis nulla vel ornare. Fusce sodales, ipsum a auctor vestibulum, ante est blandit ante, et convallis purus purus congue ex. Vivamus a finibus sapien, at ultricies ex. Ut ornare mauris velit, et venenatis justo tincidunt sit amet."
 //        noticia.text = "NOTICIA TEXT TEST"
 //        noticia.url = "https://imagenes.elpais.com/resizer/GLfCZ8oOlfil2w-XpWWl99j8sT8=/1960x0/cloudfront-eu-central-1.images.arcpublishing.com/prisa/W5O4QHHCMBHQ5DHXSDSIPAVNFY.jpg";
-        if (noticia.title === ''){
-            setMessage('El título no debe estar vacío');
-            return false;
-        }
 
-        if (newsList.find(n => n.title === noticia.title)){
-            setMessage('La noticia ya existe');
+        const validation = validateNewsTitle(noticia);
+        if (! validation){
             return false;
         }
 
         setNewsList((prevNewsList) => {
             if (! prevNewsList.find(n=> n.title === noticia.title)){
-                return [...prevNewsList, noticia]
+                return [...prevNewsList, noticia];
             } else {
                 setMessage('La noticia ya existe');
                 return prevNewsList;
             }
         });
+        return true;
+    }
+
+    function onNewsEdit(newNoticia, oldNoticia){
+        const validation = validateNewsTitle(newNoticia);
+        if (! validation){
+            return false;
+        }
+
+        if (newNoticia.title != oldNoticia.title){
+            setMessage('El título de la noticia no se puede cambiar');
+            return false;
+        }
+
+        setNewsList((prevNewsList) => {
+                return prevNewsList.map((n) => n.title === oldNoticia.title ? newNoticia : n);
+            })
+        setMessage(newNoticia.title);
+        return true;
+    }
+
+    function validateNewsTitle(noticia) {
+        if (noticia.title === ''){
+            setMessage('El título no debe estar vacío');
+            return false;
+        }
+        if (newsList.find(n => n.title === noticia.title)){
+            setMessage('La noticia ya existe');
+            return false;
+        }
+        return true;
     }
 
     function onNewsDelete2(noticia){
@@ -114,9 +154,7 @@ function Noticias(props) {
         });
     }
 
-    function onNewsEdit(noticia){
-        setMessage(noticia.title);
-    }
+
 
     const IconText = ({ icon, text }) => (
         <Space>
@@ -168,8 +206,14 @@ function Noticias(props) {
                         {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
                         
                         {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
-                        <Button type="primary" onClick={() => onNewsEdit(item)}>Editar</Button>  &nbsp;&nbsp;
+                        <Button type="primary" onClick={handleClickEdit}>Editar</Button>  &nbsp;&nbsp;
                         <Button type="primary" danger="True" onClick={() => onNewsDelete2(item)}>Eliminar</Button>
+                        <>{isShowEdit && item.title === noticiaEditada  ?            
+                            <>{isShowEdit} <p> LISA NECESITA UN APARATO NOT SHOWING</p></>
+                            :
+                            <>{isShowEdit} <p> FORMULARITO</p> 
+                            </>}
+                        </>
                     </List.Item>
                 )
             }
@@ -185,8 +229,6 @@ function Noticias(props) {
                 <Alert type="warning" message={message}  showIcon 
                 //onClose={onClose}
                 /></>
-            
-            
             }</>
 
             <>{isShow ?            
@@ -194,7 +236,6 @@ function Noticias(props) {
                 :
                 <CreateNews onAddNews={onAddNews}/>
                 }
-                
             </>
         </Fragment>
     );
