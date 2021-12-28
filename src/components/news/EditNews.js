@@ -1,4 +1,5 @@
-import { useState } from "react";
+import {useState} from "react";
+import { Input, Form, Typography, Button } from 'antd';
 
 function EditNews(props) {
 
@@ -13,7 +14,7 @@ function EditNews(props) {
     const { Title } = Typography;
 
     function onClick() {
-        const newNews ={
+        const editNews ={
             title: title,
             description: description,
             text: text,
@@ -22,7 +23,7 @@ function EditNews(props) {
             relatedMovies: relatedMovies,
             urlImagen: urlImagen,
         };
-        const result = props.onAddNews(newNews);
+        const result = props.onNewsEdit(editNews);
         
 
         if (result) {
@@ -35,7 +36,7 @@ function EditNews(props) {
             setUrlImagen('');
         }
 
-        props.onAddNews(newNews);
+        props.onNewsEdit(editNews);
     }
 //            <input className="form-control" name="description" value={description}  onChange={(event) => setDescription(event.target.value)}/>
     return (
@@ -47,7 +48,7 @@ function EditNews(props) {
                 layout="horizontal"
             >
                 <Title level={3}
-                    layout="horizontal">Publicar nueva noticia</Title>
+                    layout="horizontal">Editando noticia </Title>
                 <Form.Item
                     name="title"
                     label="Título"
@@ -58,6 +59,7 @@ function EditNews(props) {
                     className="form-control" 
                     name="title" 
                     value={title}  
+                    defaultValue={title}
                     onChange={(event) => setTitle(event.target.value)} 
                     style={{ width: '60%' }}/>
                 </Form.Item>
@@ -71,6 +73,7 @@ function EditNews(props) {
                     placeholder="Subtítulo de la noticia" 
                     name="description" 
                     value={description} 
+                    defaultValue={description} 
                     allowClear 
                     onChange={(event) => setDescription(event.target.value)} 
                     style={{ width: '60%' }} />
@@ -85,6 +88,7 @@ function EditNews(props) {
                     placeholder="Cuerpo de la noticia" 
                     name="text" 
                     value={text} 
+                    defaultValue={text} 
                     allowClear 
                     onChange={(event) => setText(event.target.value)} 
                     style={{ width: '60%' }} />
@@ -99,12 +103,13 @@ function EditNews(props) {
                     placeholder="http://www.imagen.com/id1" 
                     name="urlImagen" 
                     value={urlImagen} 
+                    defaultValue={urlImagen} 
                     allowClear 
                     onChange={(event) => setUrlImagen(event.target.value)} 
                     style={{ width: '60%' }} />
                 </Form.Item>
 
-                <Button type="primary" onClick={onClick}> Crear noticia </Button>
+                <Button type="primary" onClick={onClick}> Editar noticia </Button>
             </Form>
         </div>
     )

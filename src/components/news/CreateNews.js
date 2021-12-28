@@ -52,7 +52,11 @@ function CreateNews(props) {
                 <Form.Item
                     name="title"
                     label="Título"
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                        { required: true, message:'El título no puede estar vacío'}, 
+                        { type: 'string', min: 4, message:'El título debe tener al menos 4 caracteres'}
+                    ]}
+            
                 >
                     <Input 
                     placeholder="Título de la noticia" 
@@ -61,14 +65,17 @@ function CreateNews(props) {
                     value={title}  
                     onChange={(event) => setTitle(event.target.value)} 
                     style={{ width: '60%' }}/>
+                    
                 </Form.Item>
                 
                 <Form.Item
                     name="description"
                     label = "Subtítulo"
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                        { type: 'string', min: 10 }
+                    ]}
                 >
-                    <Input.TextArea 
+                <Input.TextArea 
                     placeholder="Subtítulo de la noticia" 
                     name="description" 
                     value={description} 
@@ -80,7 +87,10 @@ function CreateNews(props) {
                 <Form.Item
                     name="text"
                     label = "Cuerpo de la noticia"
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                    { required: true}, 
+                    { type: 'string', min: 4 }]}
+                    
                 >
                     <Input.TextArea 
                     placeholder="Cuerpo de la noticia" 
@@ -88,13 +98,14 @@ function CreateNews(props) {
                     value={text} 
                     allowClear 
                     onChange={(event) => setText(event.target.value)} 
-                    style={{ width: '60%' }} />
+                    style={{ width: '60%' }} 
+                    />
                 </Form.Item>
 
                 <Form.Item
                     name="urlImagen"
                     label = "Enlace de la imagen"
-//                    rules={[{ required: true }]}            
+                    rules={[{ required: true }]}            
                 >
                     <Input type="url" 
                     placeholder="http://www.imagen.com/id1" 
@@ -102,10 +113,13 @@ function CreateNews(props) {
                     value={urlImagen} 
                     allowClear 
                     onChange={(event) => setUrlImagen(event.target.value)} 
-                    style={{ width: '60%' }} />
+                    style={{ width: '60%' }} 
+                    />
                 </Form.Item>
-
-                <Button type="primary" onClick={onClick}> Crear noticia </Button>
+                
+                <Form.Item>
+                    <Button type="primary" onClick={onClick} htmlType="submit"> Crear noticia </Button>
+                </Form.Item>
             </Form>
         </div>
     )

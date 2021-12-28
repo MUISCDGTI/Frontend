@@ -1,11 +1,12 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Typography, List, Avatar, Space, Button, Alert } from 'antd';
+import { Typography, List, Avatar, Space, Button, Alert, message } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import Item from 'antd/lib/list/Item';
 import NewsApi from '../../NewsApi.js';
 import CreateNews from './CreateNews.js';
+import EditNews from './EditNews.js';
 import { type } from 'os';
 
 function Noticias(props) {
@@ -21,7 +22,7 @@ function Noticias(props) {
                 const n = NewsApi.getAllNews();
                 setNewsList(n);
             } catch (error){
-    //            setMessage('No se pudo contactar con el servidor');
+    //            setMensaje('No se pudo contactar con el servidor');
                 console.log(error);
             }
         }
@@ -58,34 +59,27 @@ function Noticias(props) {
     }
     */
 
-    
-    console.log(props.newsList);
-
     const [newsList, setNewsList] = useState(props.newsList);
 
-    const [message, setMessage] = useState("");
+    const [mensaje, setMensaje] = useState("");
 
     const [createEscondido, setCreateEscondido] = useState("false");
 
     const [isShow, setIsShow] = useState("true");
 
-    const [isShowEdit, setIsShowEdit] = useState("false");
+    const [isShowEdit, setIsShowEdit] = useState(false);
 
     const [noticiaEditada, setIsNoticiaEditada] = useState();
 
     const handleClick = () => {
         setIsShow(!isShow);
+        setMensaje('');
     };
 
-    const handleClickEdit = (tituloNoticia) => {
+    function handleClickEdit(tituloNoticia) {
         setIsShowEdit(!isShowEdit);
-        console.log("EOEOEOEOEEOOE");
-        console.log(tituloNoticia);
-        tituloNoticia = "hardcode";
-        console.log(tituloNoticia);
         setIsNoticiaEditada(tituloNoticia);
-
-    };
+    }
 
     const { Text, Title } = Typography;
 
@@ -109,9 +103,11 @@ function Noticias(props) {
 
         setNewsList((prevNewsList) => {
             if (! prevNewsList.find(n=> n.title === noticia.title)){
+                message.success('Noticia creada correctamente');
+                setMensaje('');
+                setIsShow(!isShow);
                 return [...prevNewsList, noticia];
             } else {
-                setMessage('La noticia ya existe');
                 return prevNewsList;
             }
         });
@@ -123,32 +119,33 @@ function Noticias(props) {
         if (! validation){
             return false;
         }
-
+        /* Descomentar
         if (newNoticia.title != oldNoticia.title){
-            setMessage('El título de la noticia no se puede cambiar');
+            setMensaje('El título de la noticia no se puede cambiar');
             return false;
         }
-
+        */
         setNewsList((prevNewsList) => {
                 return prevNewsList.map((n) => n.title === oldNoticia.title ? newNoticia : n);
             })
-        setMessage(newNoticia.title);
+        setMensaje(newNoticia.title);
         return true;
     }
 
     function validateNewsTitle(noticia) {
         if (noticia.title === ''){
-            setMessage('El título no debe estar vacío');
+            setMensaje('El título no debe estar vacío');
             return false;
         }
         if (newsList.find(n => n.title === noticia.title)){
-            setMessage('La noticia ya existe');
+            setMensaje('La noticia ya existe');
             return false;
         }
         return true;
     }
 
     function onNewsDelete2(noticia){
+        message.success('Noticia eliminada correctamente');
         setNewsList((prevNewsList) => {
             return prevNewsList.filter((n) => n.title !== noticia.title);
         });
@@ -164,17 +161,12 @@ function Noticias(props) {
     );
 
     function onAlertClose() {
-        setMessage(null);
+        setMensaje(null);
     }
     
      return (
         <Fragment>
             <Title level={2}>Lista de noticias</Title>
-
-            <button onClick={() => onAlertClose()}>
-                x
-            </button>
-
 
             <List
                 itemLayout="vertical"
@@ -206,12 +198,16 @@ function Noticias(props) {
                         {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
                         
                         {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
-                        <Button type="primary" onClick={handleClickEdit}>Editar</Button>  &nbsp;&nbsp;
-                        <Button type="primary" danger="True" onClick={() => onNewsDelete2(item)}>Eliminar</Button>
+                        <Button type="primary" onClick={() => handleClickEdit(item.title)}>Editar</Button>  &nbsp;&nbsp;
+                        <Button type="primary" danger="True" onClick={() => {
+                            return onNewsDelete2(item);
+                        }}>Eliminar</Button>
                         <>{isShowEdit && item.title === noticiaEditada  ?            
-                            <>{isShowEdit} <p> LISA NECESITA UN APARATO NOT SHOWING</p></>
+                            <>{isShowEdit}                            
+                                <EditNews noticia={item} onNewsEdit={onNewsEdit} />
+                            </>
                             :
-                            <>{isShowEdit} <p> FORMULARITO</p> 
+                            <>
                             </>}
                         </>
                     </List.Item>
@@ -222,11 +218,11 @@ function Noticias(props) {
             <Button type="default" onClick={handleClick}> Escribir nueva noticia </Button>
             
 
-            <>{ message ==='' ?
+            <>{ mensaje ==='' ?
                 <></>
                 :
                 <><br/><br/>
-                <Alert type="warning" message={message}  showIcon 
+                <Alert type="warning" message={mensaje}  showIcon 
                 //onClose={onClose}
                 /></>
             }</>
