@@ -14,6 +14,7 @@ function EditNews(props) {
     const { Title } = Typography;
 
     function onClick() {
+        console.log("ESTOY DENTRO DEL ONCLICK Y VOY A EJECUTAR EL ONNEWSEDIT")
         const editNews ={
             title: title,
             description: description,

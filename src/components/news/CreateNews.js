@@ -52,6 +52,7 @@ function CreateNews(props) {
                 <Form.Item
                     name="title"
                     label="Título"
+                    help="Should be combination of numbers & alphabets"
                     rules={[
                         { required: true, message:'El título no puede estar vacío'}, 
                         { type: 'string', min: 4, message:'El título debe tener al menos 4 caracteres'}
@@ -72,8 +73,11 @@ function CreateNews(props) {
                     name="description"
                     label = "Subtítulo"
                     rules={[
-                        { type: 'string', min: 10 }
-                    ]}
+                        { type: 'string', min: 10 },
+                        
+                    ]
+                    validateTrigger= 'onSubmit'
+                }
                 >
                 <Input.TextArea 
                     placeholder="Subtítulo de la noticia" 

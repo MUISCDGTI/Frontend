@@ -76,9 +76,12 @@ function Noticias(props) {
         setMensaje('');
     };
 
-    function handleClickEdit(tituloNoticia) {
+    function handleClickEdit(noticia) {
         setIsShowEdit(!isShowEdit);
-        setIsNoticiaEditada(tituloNoticia);
+        setIsNoticiaEditada(noticia.title);
+        // if (isShowEdit) {
+        //     onNewsEdit()
+        // }
     }
 
     const { Text, Title } = Typography;
@@ -115,11 +118,12 @@ function Noticias(props) {
     }
 
     function onNewsEdit(newNoticia, oldNoticia){
+        /* Descomentar
         const validation = validateNewsTitle(newNoticia);
         if (! validation){
             return false;
         }
-        /* Descomentar
+
         if (newNoticia.title != oldNoticia.title){
             setMensaje('El título de la noticia no se puede cambiar');
             return false;
@@ -128,7 +132,7 @@ function Noticias(props) {
         setNewsList((prevNewsList) => {
                 return prevNewsList.map((n) => n.title === oldNoticia.title ? newNoticia : n);
             })
-        setMensaje(newNoticia.title);
+        // setMensaje(newNoticia.title);
         return true;
     }
 
@@ -198,13 +202,17 @@ function Noticias(props) {
                         {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
                         
                         {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
-                        <Button type="primary" onClick={() => handleClickEdit(item.title)}>Editar</Button>  &nbsp;&nbsp;
+                        <Button type="primary" onClick={() => {
+                            handleClickEdit(item)}}>
+                            Editar
+                        </Button>  &nbsp;&nbsp;
                         <Button type="primary" danger="True" onClick={() => {
-                            return onNewsDelete2(item);
-                        }}>Eliminar</Button>
+                            return onNewsDelete2(item);}}>
+                                Eliminar
+                        </Button>
                         <>{isShowEdit && item.title === noticiaEditada  ?            
                             <>{isShowEdit}                            
-                                <EditNews noticia={item} onNewsEdit={onNewsEdit} />
+                                <EditNews noticia={item} onNewsEdit={(newNoticia) => onNewsEdit(newNoticia,item)} />
                             </>
                             :
                             <>
