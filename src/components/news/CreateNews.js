@@ -76,7 +76,6 @@ function CreateNews(props) {
                         { type: 'string', min: 10 },
                         
                     ]
-                    validateTrigger= 'onSubmit'
                 }
                 >
                 <Input.TextArea 
