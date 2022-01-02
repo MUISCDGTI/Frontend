@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   List,
   Dropdown,
@@ -17,113 +17,107 @@ import { DownOutlined } from "@ant-design/icons";
 import "./index.css";
 import moment from "moment";
 
-class App extends React.Component {
-  visible;
+const RatingApp = (props) => {
 
-  showModal = () => {
-    return this.visible = true;
+  var ratings = [
+    {
+      _id: "jsiodlekfn4",
+      value: "4.5",
+      description: "Good film",
+      film: "1",
+      user: "11",
+      date: "2020-11-02T23:00:00.000+00:00",
+    },
+    {
+      _id: "erogpiwnm5",
+      value: "1.5",
+      description: "Bad film",
+      film: "15",
+      user: "19",
+      date: "2021-12-02T23:00:00.000+00:00",
+    },
+    {
+      _id: "srvwmpe1",
+      value: "3",
+      description: "Nice",
+      film: "15",
+      user: "11",
+      date: "2021-12-16T17:00:00.000+00:00",
+    },
+  ];
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
   };
 
-  handleOk = () => {
-    return this.visible = false;
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
-  handleCancel = () => {
-    return this.visible = false;
-  };
-};
-
-
-var ratings = [
-  {
-    _id: "jsiodlekfn4",
-    value: "4.5",
-    description: "Good film",
-    film: "1",
-    user: "11",
-    date: "2020-11-02T23:00:00.000+00:00",
-  },
-  {
-    _id: "erogpiwnm5",
-    value: "1.5",
-    description: "Bad film",
-    film: "15",
-    user: "19",
-    date: "2021-12-02T23:00:00.000+00:00",
-  },
-  {
-    _id: "srvwmpe1",
-    value: "3",
-    description: "Nice",
-    film: "15",
-    user: "11",
-    date: "2021-12-16T17:00:00.000+00:00",
-  },
-];
-
-var app = new App();
-
-const form = (
-  <Form
-    name="basic"
-    labelCol={{ span: 8 }}
-    wrapperCol={{ span: 16 }}
-    initialValues={{ remember: true }}
-    autoComplete="off"
-  >
-    <Form.Item
-      label="Rating"
-      name="rating"
-      rules={[{ required: true, message: 'Please input your rating' }]}
+  const form = (
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      autoComplete="off"
     >
-      <Input />
-    </Form.Item>
+      <Form.Item
+        label="Rating"
+        name="rating"
+        rules={[{ required: true, message: 'Please input your rating' }]}
+      >
+        <Input />
+      </Form.Item>
 
-    <Form.Item
-      label="Comment"
-      name="comment"
-      rules={[{ required: true, message: 'Please input your comment' }]}
+      <Form.Item
+        label="Comment"
+        name="comment"
+        rules={[{ required: true, message: 'Please input your comment' }]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+
+  const modal = (
+    <Modal
+      visible={isModalVisible}
+      title="Create a rating"
+      onCancel={handleCancel}
+      footer={[
+        <Button key="back" onClick={handleCancel}>
+          Return
+        </Button>
+      ]}
     >
-      <Input />
-    </Form.Item>
-  </Form>
-);
+      <p>{form}</p>
+  </Modal>
+  );
 
-const modal = (
-  <Modal
-    visible={app.visible}
-    title="Create a rating"
-    onOk={app.handleOk}
-    onCancel={app.handleCancel}
-    footer={[
-      <Button key="back" onClick={app.handleCancel}>
-        Return
-      </Button>,
-      <Button key="submit" type="primary" onClick={app.handleOk}>
-        Submit
-      </Button>,
-    ]}
-  >
-    <p>{form}</p>
-</Modal>
-);
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <span>ascendent</span>
+      </Menu.Item>
+      <Menu.Item>
+        <span>descendent</span>
+      </Menu.Item>
+    </Menu>
+  );
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <span>ascendent</span>
-    </Menu.Item>
-    <Menu.Item>
-      <span>descendent</span>
-    </Menu.Item>
-  </Menu>
-);
+  const { Search } = Input;
+  const { RangePicker } = DatePicker;
+  const { Panel } = Collapse;
 
-const { Search } = Input;
-const { RangePicker } = DatePicker;
-const { Panel } = Collapse;
-
-const RatingsList = (props) => {
   if (props.page === "film") {
     ratings = ratings.filter((rating) => rating.film === props.id);
   } else if (props.page === "user") {
@@ -132,7 +126,7 @@ const RatingsList = (props) => {
   return (
     <div className="list">
       <h2 className="list-header">Ratings</h2>
-      <Button type="primary" onClick={app.showModal}>
+      <Button type="primary" onClick={showModal}>
         Create
       </Button>
       {modal}
@@ -164,7 +158,7 @@ const RatingsList = (props) => {
             actions={
               props.page === "user"
                 ? [
-                    <Button type="primary" primary ghost>
+                    <Button type="primary" onClick={showModal} primary ghost>
                       update
                     </Button>,
                     <Button type="primary" danger ghost>
@@ -198,4 +192,4 @@ const RatingsList = (props) => {
   );
 };
 
-export default RatingsList;
+export default RatingApp;
