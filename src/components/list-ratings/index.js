@@ -11,7 +11,8 @@ import {
   Button,
   Avatar,
   Form,
-  Modal
+  Modal,
+  InputNumber
 } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import "./index.css";
@@ -48,8 +49,26 @@ const RatingApp = (props) => {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const [isRatingVisible, setIsRatingVisible] = useState(true);
+
+  const [isDescriptionVisible, setIsDescriptionVisible] = useState(true);
+
+  const updateRating = () => {
+    setIsModalVisible(true);
+    setIsRatingVisible(true);
+    setIsDescriptionVisible(false);
+  };
+
+  const updateDescription = () => {
+    setIsModalVisible(true);
+    setIsDescriptionVisible(true);
+    setIsRatingVisible(false);
+  };
+
   const showModal = () => {
     setIsModalVisible(true);
+    setIsDescriptionVisible(true);
+    setIsRatingVisible(true);
   };
 
   const handleCancel = () => {
@@ -64,21 +83,36 @@ const RatingApp = (props) => {
       initialValues={{ remember: true }}
       autoComplete="off"
     >
-      <Form.Item
-        label="Rating"
-        name="rating"
-        rules={[{ required: true, message: 'Please input your rating' }]}
-      >
-        <Input />
-      </Form.Item>
+      {isRatingVisible?
+        <Form.Item
+          label="Puntuación"
+          name="rating"
+          rules={[{ 
+            required: true, 
+            type: 'number',
+            min: 0,
+            max: 5,
+            message: 'La puntuacion tiene que estar entre 0 y 5, y no estar vacía',
+          }]}
+        >
+          <InputNumber />
+        </Form.Item>
+      :null}
 
-      <Form.Item
-        label="Comment"
-        name="comment"
-        rules={[{ required: true, message: 'Please input your comment' }]}
-      >
-        <Input />
-      </Form.Item>
+      {isDescriptionVisible?
+        <Form.Item
+          label="Descripción"
+          name="description"
+          rules={[{ 
+            required: true,
+            type: 'string',
+            max: 500, 
+            message: 'La introducción debe ser menor de 500 caracteres y no estar vacía' 
+          }]}
+        >
+          <Input.TextArea placeholder="This is a descriptión" />
+        </Form.Item>
+      :null}
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
@@ -158,8 +192,11 @@ const RatingApp = (props) => {
             actions={
               props.page === "user"
                 ? [
-                    <Button type="primary" onClick={showModal} primary ghost>
-                      update
+                    <Button type="primary" onClick={updateRating} primary ghost>
+                      rating
+                    </Button>,
+                    <Button type="primary" onClick={updateDescription} primary ghost>
+                      description
                     </Button>,
                     <Button type="primary" danger ghost>
                       delete
