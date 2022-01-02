@@ -10,10 +10,29 @@ import {
   Collapse,
   Button,
   Avatar,
+  Form,
+  Modal
 } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import "./index.css";
 import moment from "moment";
+
+class App extends React.Component {
+  visible;
+
+  showModal = () => {
+    return this.visible = true;
+  };
+
+  handleOk = () => {
+    return this.visible = false;
+  };
+
+  handleCancel = () => {
+    return this.visible = false;
+  };
+};
+
 
 var ratings = [
   {
@@ -42,6 +61,53 @@ var ratings = [
   },
 ];
 
+var app = new App();
+
+const form = (
+  <Form
+    name="basic"
+    labelCol={{ span: 8 }}
+    wrapperCol={{ span: 16 }}
+    initialValues={{ remember: true }}
+    autoComplete="off"
+  >
+    <Form.Item
+      label="Rating"
+      name="rating"
+      rules={[{ required: true, message: 'Please input your rating' }]}
+    >
+      <Input />
+    </Form.Item>
+
+    <Form.Item
+      label="Comment"
+      name="comment"
+      rules={[{ required: true, message: 'Please input your comment' }]}
+    >
+      <Input />
+    </Form.Item>
+  </Form>
+);
+
+const modal = (
+  <Modal
+    visible={app.visible}
+    title="Create a rating"
+    onOk={app.handleOk}
+    onCancel={app.handleCancel}
+    footer={[
+      <Button key="back" onClick={app.handleCancel}>
+        Return
+      </Button>,
+      <Button key="submit" type="primary" onClick={app.handleOk}>
+        Submit
+      </Button>,
+    ]}
+  >
+    <p>{form}</p>
+</Modal>
+);
+
 const menu = (
   <Menu>
     <Menu.Item>
@@ -66,6 +132,11 @@ const RatingsList = (props) => {
   return (
     <div className="list">
       <h2 className="list-header">Ratings</h2>
+      <Button type="primary" onClick={app.showModal}>
+        Create
+      </Button>
+      {modal}
+      <p></p>
       <Collapse>
         <Panel header="Filters">
           <div className="filters">
@@ -75,10 +146,7 @@ const RatingsList = (props) => {
               </a>
             </Dropdown>
             <RangePicker />
-            <span className="stars-range">
-              Stars range
-              <Slider range defaultValue={[1, 5]} max={5} min={1} />
-            </span>
+            <span className="stars-range">Stars range<Slider range defaultValue={[1, 5]} max={5} min={1} /></span>
             <Search placeholder="Contains in description..." allowClear />
           </div>
         </Panel>
@@ -96,9 +164,12 @@ const RatingsList = (props) => {
             actions={
               props.page === "user"
                 ? [
+                    <Button type="primary" primary ghost>
+                      update
+                    </Button>,
                     <Button type="primary" danger ghost>
                       delete
-                    </Button>,
+                    </Button>
                   ]
                 : null
             }
