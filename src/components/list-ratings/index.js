@@ -23,16 +23,16 @@ const RatingApp = (props) => {
   var ratings = [
     {
       _id: "jsiodlekfn4",
-      value: "4.5",
-      description: "Good film",
+      value: "1.5",
+      description: "Mala pelicula",
       film: "1",
       user: "11",
       date: "2020-11-02T23:00:00.000+00:00",
     },
     {
       _id: "erogpiwnm5",
-      value: "1.5",
-      description: "Bad film",
+      value: "4.5",
+      description: "Buena pelicula",
       film: "15",
       user: "19",
       date: "2021-12-02T23:00:00.000+00:00",
@@ -40,7 +40,7 @@ const RatingApp = (props) => {
     {
       _id: "srvwmpe1",
       value: "3",
-      description: "Nice",
+      description: "Guay",
       film: "15",
       user: "11",
       date: "2021-12-16T17:00:00.000+00:00",
@@ -101,7 +101,7 @@ const RatingApp = (props) => {
 
       {isDescriptionVisible?
         <Form.Item
-          label="Descripción"
+          label="Comentario"
           name="description"
           rules={[{ 
             required: true,
@@ -110,13 +110,13 @@ const RatingApp = (props) => {
             message: 'La introducción debe ser menor de 500 caracteres y no estar vacía' 
           }]}
         >
-          <Input.TextArea placeholder="This is a descriptión" />
+          <Input.TextArea placeholder="Esto es un comentario" />
         </Form.Item>
       :null}
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
-          Submit
+          Enviar
         </Button>
       </Form.Item>
     </Form>
@@ -125,11 +125,11 @@ const RatingApp = (props) => {
   const modal = (
     <Modal
       visible={isModalVisible}
-      title="Create a rating"
+      title="Valoración"
       onCancel={handleCancel}
       footer={[
         <Button key="back" onClick={handleCancel}>
-          Return
+          Volver
         </Button>
       ]}
     >
@@ -140,10 +140,10 @@ const RatingApp = (props) => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <span>ascendent</span>
+        <span>Ascendente</span>
       </Menu.Item>
       <Menu.Item>
-        <span>descendent</span>
+        <span>Descendente</span>
       </Menu.Item>
     </Menu>
   );
@@ -159,23 +159,23 @@ const RatingApp = (props) => {
   }
   return (
     <div className="list">
-      <h2 className="list-header">Ratings</h2>
+      <h2 className="list-header">Valoraciones</h2>
       <Button type="primary" onClick={showModal}>
-        Create
+        Crear
       </Button>
       {modal}
       <p></p>
       <Collapse>
-        <Panel header="Filters">
+        <Panel header="Filtros">
           <div className="filters">
             <Dropdown overlay={menu}>
               <a className="dropdown">
-                Order by <DownOutlined />
+                Ordenar por <DownOutlined />
               </a>
             </Dropdown>
-            <RangePicker />
-            <span className="stars-range">Stars range<Slider range defaultValue={[1, 5]} max={5} min={1} /></span>
-            <Search placeholder="Contains in description..." allowClear />
+            <RangePicker placeholder = {["Fecha inicio", "Fecha fin"]} />
+            <span className="stars-range">Rango de estrellas<Slider range defaultValue={[1, 5]} max={5} min={1} /></span>
+            <Search placeholder="Contenido en el comentario..." allowClear />
           </div>
         </Panel>
       </Collapse>
@@ -193,13 +193,13 @@ const RatingApp = (props) => {
               props.page === "user"
                 ? [
                     <Button type="primary" onClick={updateRating} primary ghost>
-                      rating
+                      Puntuación
                     </Button>,
                     <Button type="primary" onClick={updateDescription} primary ghost>
-                      description
+                      Comentario
                     </Button>,
                     <Button type="primary" danger ghost>
-                      delete
+                      Borrar
                     </Button>
                   ]
                 : null

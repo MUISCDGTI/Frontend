@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Card } from 'antd';
-import RatingsList from '../list-ratings';
+import RatingApp from '../list-ratings';
 
 const Noticias = () => {
     return (
@@ -12,7 +12,7 @@ const Noticias = () => {
                 <p>Card content</p>
                 <p>Card content</p>
             </Card>
-            <RatingsList page='user' id='11' username='emicolalc' />
+            <RatingApp page='user' id='11' username='emicolalc' />
         </div>
     );
 }
