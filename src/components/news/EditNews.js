@@ -54,7 +54,10 @@ function EditNews(props) {
                     name="title"
                     label="Título"
                     initialValue={title} 
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                        { required: true , message:'El título no puede estar vacío' }
+                        ,{ type: 'string', min: 4 , message:'El título debe tener al menos 4 caracteres.'}
+                ]}
                 >
                     <Input 
                     placeholder="Título de la noticia" 
@@ -70,7 +73,11 @@ function EditNews(props) {
                     name="description"
                     label = "Subtítulo"
                     initialValue={description} 
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                        { required: true , message:'El subtítulo no puede estar vacío'  },
+                        { type: 'string', min: 4 , message:'El subtítulo debe tener al menos 4 caracteres.'}
+                    
+                    ]}
                 >
                     <Input.TextArea 
                     placeholder="Subtítulo de la noticia" 
@@ -86,7 +93,10 @@ function EditNews(props) {
                     name="text"
                     label = "Cuerpo de la noticia"
                     initialValue={text} 
-                    rules={[{ required: true }, { type: 'string', min: 4 }]}
+                    rules={[
+                        { required: true , message:'El cuerpo no puede estar vacío' },
+                        { type: 'string', min: 50 , message:'El cuerpo debe tener al menos 50 caracteres.'}
+                ]}
                 >
                     <Input.TextArea 
                     placeholder="Cuerpo de la noticia" 

@@ -52,18 +52,17 @@ function CreateNews(props) {
                 <Form.Item
                     name="title"
                     label="Título"
-                    help="Should be combination of numbers & alphabets"
                     rules={[
-                        { required: true, message:'El título no puede estar vacío'}, 
-                        { type: 'string', min: 4, message:'El título debe tener al menos 4 caracteres'}
+                        { required: true, message:'El título no puede estar vacío'},
+                        { type: 'string', min: 4 , message:'El título debe tener al menos 4 caracteres.'}
                     ]}
             
                 >
                     <Input 
                     placeholder="Título de la noticia" 
                     className="form-control" 
-                    name="title" 
-                    value={title}  
+                    // name="title" 
+                    // value={title}  
                     onChange={(event) => setTitle(event.target.value)} 
                     style={{ width: '60%' }}/>
                     
@@ -73,15 +72,15 @@ function CreateNews(props) {
                     name="description"
                     label = "Subtítulo"
                     rules={[
-                        { type: 'string', min: 10 },
-                        
+                        { required: true, message:'El subtítulo no puede estar vacío' },
+                        { type: 'string', min: 4 , message:'El subtítulo debe tener al menos 4 caracteres.'}
                     ]
                 }
                 >
                 <Input.TextArea 
                     placeholder="Subtítulo de la noticia" 
-                    name="description" 
-                    value={description} 
+                    // name="description" 
+                    // value={description} 
                     allowClear 
                     onChange={(event) => setDescription(event.target.value)} 
                     style={{ width: '60%' }} />
@@ -91,14 +90,15 @@ function CreateNews(props) {
                     name="text"
                     label = "Cuerpo de la noticia"
                     rules={[
-                    { required: true}, 
-                    { type: 'string', min: 4 }]}
+                        {required: true, message:'El cuerpo no puede estar vacío'},
+                        { type: 'string', min: 50 , message:'El cuerpo debe tener al menos 50 caracteres.'}
+                    ]}
                     
                 >
                     <Input.TextArea 
                     placeholder="Cuerpo de la noticia" 
-                    name="text" 
-                    value={text} 
+                    // name="text" 
+                    // value={text} 
                     allowClear 
                     onChange={(event) => setText(event.target.value)} 
                     style={{ width: '60%' }} 
@@ -108,12 +108,12 @@ function CreateNews(props) {
                 <Form.Item
                     name="urlImagen"
                     label = "Enlace de la imagen"
-                    rules={[{ required: true }]}            
+                    // rules={[{ required: true }]}            
                 >
                     <Input type="url" 
                     placeholder="http://www.imagen.com/id1" 
-                    name="urlImagen" 
-                    value={urlImagen} 
+                    // name="urlImagen" 
+                    // value={urlImagen} 
                     allowClear 
                     onChange={(event) => setUrlImagen(event.target.value)} 
                     style={{ width: '60%' }} 
@@ -121,7 +121,7 @@ function CreateNews(props) {
                 </Form.Item>
                 
                 <Form.Item>
-                    <Button type="primary" onClick={onClick} htmlType="submit"> Crear noticia </Button>
+                    <Button type="primary" onClick={onClick} htmlType="submit" > Crear noticia </Button>
                 </Form.Item>
             </Form>
         </div>

@@ -22,8 +22,13 @@ function Noticias() {
 
     const [isShowEdit, setIsShowEdit] = useState(false);
 
+    const [isShowReadMore, setIsShowReadMore] = useState(false);
+
     const [noticiaEditada, setIsNoticiaEditada] = useState();
 
+    const [noticiaRead, setIsNoticiaRead] = useState();
+
+    
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
@@ -47,6 +52,15 @@ function Noticias() {
         //     onNewsEdit()
         // }
     }
+
+    function handleClickReadMore(noticia) {
+        setIsShowReadMore(!isShowReadMore);
+        setIsNoticiaRead(noticia.title);
+        // if (isShowEdit) {
+        //     onNewsEdit()
+        // }
+    }
+
 
     const { Text, Title } = Typography;
 
@@ -136,10 +150,37 @@ function Noticias() {
             setMensaje('El título no debe estar vacío');
             return false;
         }
+        if (noticia.description === ''){
+            setMensaje('El subtítulo no debe estar vacío');
+            return false;
+        }
+        if (noticia.text === ''){
+            setMensaje('El cuerpo no debe estar vacío');
+            return false;
+        }
+        console.log(noticia.text.length)
+        if (noticia.title.length < 4) {
+            setMensaje('El título debe tener al menos 4 caracteres.');
+            return false;
+        }
+
+        if (noticia.description.length < 4) {
+            setMensaje('El subtítulo debe tener al menos 4 caracteres.');
+            return false;
+        }
+
+        if (noticia.text.length < 50) {
+            setMensaje('El título debe tener al menos 50 caracteres.');
+            return false;
+        }
+       
+
         if (newsList.find(n => n.title === noticia.title)){
             setMensaje('La noticia ya existe');
             return false;
         }
+
+
         return true;
     }
 
@@ -203,8 +244,31 @@ function Noticias() {
                             title={<a href={item.href}>{item.title}</a>}
                             description={item.description}
                         />
-                        {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
+                        {item.text.length > 400 ? 
+                        (<><p>{item.text.substring(0, 400).concat('...')}</p><a onClick={() => {
+                                handleClickReadMore(item);
+                            } }>
+                                Leer más
+                            </a><>
+                            
+                             {isShowReadMore && item.title === noticiaRead ?
+                                <>
+                                    <br /><br />
+                                    <p> {item.text} </p>
+                                </>
+                                :
+                                <></>}
+                                </></>
                         
+                        ) 
+                        : 
+                        (<p>{item.text}</p>)}
+
+
+                        
+                        <br/><br/>
+
+
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
                         <Button type="primary" onClick={() => {
                             handleClickEdit(item)}}>
