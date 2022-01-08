@@ -109,18 +109,20 @@ function Noticias() {
         }
         */
         console.log(newNoticia._id)
-        fetch('/api/v1/news/' + newNoticia._id, {
+        console.log(oldNoticia._id)
+        console.log("INICIO FETCH")
+        fetch('/api/v1/news/' + oldNoticia._id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(newNoticia)
         })
-            .then(console.log(JSON.stringify(newNoticia)))
+            .then(console.log("NEW NOTICIA" + JSON.stringify(newNoticia)))
             .catch(err => console.log(err))
             .then(res => res.json())
             .then(thing => console.log(thing))
-
+        console.log("FIN FETCH")
 
         setNewsList((prevNewsList) => {
                 return prevNewsList.map((n) => n.title === oldNoticia.title ? newNoticia : n);

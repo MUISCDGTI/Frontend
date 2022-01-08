@@ -10,6 +10,7 @@ function EditNews(props) {
     const [createdAt, setCreatedAt] = useState(props.noticia.createdAt);
     const [relatedMovies, setRelatedMovies] = useState(props.noticia.relatedMovies);
     const [urlImagen, setUrlImagen] = useState(props.noticia.urlImagen);
+    const [id, setId] = useState(props.noticia._id)
 
     const { Title } = Typography;
 
@@ -52,6 +53,7 @@ function EditNews(props) {
                 <Form.Item
                     name="title"
                     label="Título"
+                    initialValue={title} 
                     rules={[{ required: true }, { type: 'string', min: 4 }]}
                 >
                     <Input 
@@ -59,7 +61,7 @@ function EditNews(props) {
                     className="form-control" 
                     name="title" 
                     value={title}  
-                    defaultValue={title}
+                    //defaultValues={title}
                     onChange={(event) => setTitle(event.target.value)} 
                     style={{ width: '60%' }}/>
                 </Form.Item>
@@ -67,13 +69,14 @@ function EditNews(props) {
                 <Form.Item
                     name="description"
                     label = "Subtítulo"
+                    initialValue={description} 
                     rules={[{ required: true }, { type: 'string', min: 4 }]}
                 >
                     <Input.TextArea 
                     placeholder="Subtítulo de la noticia" 
                     name="description" 
                     value={description} 
-                    defaultValue={description} 
+                    // initialValues={description} 
                     allowClear 
                     onChange={(event) => setDescription(event.target.value)} 
                     style={{ width: '60%' }} />
@@ -82,13 +85,14 @@ function EditNews(props) {
                 <Form.Item
                     name="text"
                     label = "Cuerpo de la noticia"
+                    initialValue={text} 
                     rules={[{ required: true }, { type: 'string', min: 4 }]}
                 >
                     <Input.TextArea 
                     placeholder="Cuerpo de la noticia" 
                     name="text" 
                     value={text} 
-                    defaultValue={text} 
+                    // initialValues={text} 
                     allowClear 
                     onChange={(event) => setText(event.target.value)} 
                     style={{ width: '60%' }} />
@@ -97,16 +101,26 @@ function EditNews(props) {
                 <Form.Item
                     name="urlImagen"
                     label = "Enlace de la imagen"
-//                    rules={[{ required: true }]}            
+//                    rules={[{ required: true }]} 
+                    initialValue={urlImagen}            
                 >
                     <Input type="url" 
                     placeholder="http://www.imagen.com/id1" 
                     name="urlImagen" 
                     value={urlImagen} 
-                    defaultValue={urlImagen} 
+                    // defaultValue={urlImagen} 
                     allowClear 
                     onChange={(event) => setUrlImagen(event.target.value)} 
                     style={{ width: '60%' }} />
+                </Form.Item>
+
+                <Form.Item
+                    name="_id"
+                    hidden
+                    initialValue={id}
+                >
+                    <Input value={id} />
+
                 </Form.Item>
 
                 <Button type="primary" onClick={onClick}> Editar noticia </Button>
