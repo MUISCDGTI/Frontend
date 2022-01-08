@@ -29,7 +29,7 @@ class NewsApi {
     }
 
 
-    static async createNews (noticia) {
+    static createNews (noticia) {
         const headers = this.requestHeaders();
         const request = new Request(NewsApi.API_BASE_URL + "/news", {
             method: 'POST',
@@ -39,13 +39,16 @@ class NewsApi {
 
         console.log(console.log(JSON.stringify(noticia)));
         
-        const response = await fetch(request);
+        const response = fetch(request).then(console.log(JSON.stringify(noticia)))
+            .catch(err => console.log(err))
+            .then(res => res.json())
+            .then(thing => console.log(thing));
         
-        if(! response.ok){
-            throw Error('Respuesta no válida ' + response.status);
-        }
+        // if(! response.ok){
+        //     throw Error('Respuesta no válida ' + response.status);
+        // }
         
-        return response.json();
+        return response;
 
     }
 

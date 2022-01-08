@@ -57,20 +57,22 @@ function Noticias() {
         noticia.href = "./news/id"
         noticia.author = "Periquito Pérez"
         var hoy = new Date();
-        noticia.createdAt = hoy.getDay() + " de " + hoy.toLocaleString('default', { month: 'long' }) + " del " 
-            + hoy.getFullYear() + " a las " + hoy.getHours() + ":" + hoy.getMinutes();
 
         const validation = validateNewsTitle(noticia);
         if (! validation){
             return false;
         }
 
+        noticia.createdAt = hoy;
+
+        noticia.createdAtFormat = hoy.getDay() + " de " + hoy.toLocaleString('default', { month: 'long' }) + " del " 
+            + hoy.getFullYear() + " a las " + hoy.getHours() + ":" + hoy.getMinutes();
+
         setNewsList((prevNewsList) => {
             if (! prevNewsList.find(n=> n.title === noticia.title)){
                 message.success('Noticia creada correctamente');
                 setMensaje('');
                 setIsShow(!isShow);
-                console.log("COMENZANDO FETCH")
 
                 fetch('/api/v1/news', {
                     method: 'POST',
@@ -83,7 +85,8 @@ function Noticias() {
                     .catch(err => console.log(err))
                     .then(res => res.json())
                     .then(thing => console.log(thing))
-                console.log( "FIN FETCH")
+                
+
 
                 return [...prevNewsList, noticia];
             } else {
@@ -105,6 +108,20 @@ function Noticias() {
             return false;
         }
         */
+        console.log(newNoticia._id)
+        fetch('/api/v1/news/' + newNoticia._id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newNoticia)
+        })
+            .then(console.log(JSON.stringify(newNoticia)))
+            .catch(err => console.log(err))
+            .then(res => res.json())
+            .then(thing => console.log(thing))
+
+
         setNewsList((prevNewsList) => {
                 return prevNewsList.map((n) => n.title === oldNoticia.title ? newNoticia : n);
             })
@@ -126,6 +143,11 @@ function Noticias() {
 
     function onNewsDelete2(noticia){
         message.success('Noticia eliminada correctamente');
+        console.log(noticia)
+        console.log(noticia._id)
+        fetch("/api/v1/news/" + noticia._id, {
+            method: 'DELETE'
+        })
         setNewsList((prevNewsList) => {
             return prevNewsList.filter((n) => n.title !== noticia.title);
         });
@@ -145,7 +167,7 @@ function Noticias() {
     }
     
     if (newsList === undefined) {
-        return <> PROBANDO </> 
+        return <> Cargando...  </> 
     }
 
     return (
@@ -181,7 +203,7 @@ function Noticias() {
                         />
                         {item.text.length > 400 ? (<p>{item.text.substring(0,400).concat('...')}</p>) : (<p>{item.text}</p>)}
                         
-                        {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
+                        {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
                         <Button type="primary" onClick={() => {
                             handleClickEdit(item)}}>
                             Editar
