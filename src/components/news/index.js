@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment, useCallback } from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Typography, List, Avatar, Space, Button, Alert, message } from 'antd';
+import { Typography, List, Avatar, Space, Button, Alert, message, Carousel } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import Item from 'antd/lib/list/Item';
 import NewsApi from '../../NewsApi.js';
@@ -28,18 +28,33 @@ function Noticias() {
 
     const [noticiaRead, setIsNoticiaRead] = useState();
 
+    const [reviews, setReviews] = useState([]);
     
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
     useEffect(() => {
         const fetchData = async () =>  {
-            const listaNoticias = await NewsApi.getAllNews();            
+            const listaNoticias = await NewsApi.getAllNews();       
+            const listReviews = await fetch("https://api.nytimes.com/svc/movies/v2/reviews/picks.json?api-key=U3roLWkxcOF5EjCBKH2ak5SvpiyylvHj");
+            const listReviewsData = await listReviews.json();
+            console.log("Noticias BD")
+            console.log(listaNoticias)
+            console.log("Reviews NYT")
+            let arrayReviews = [];
+            arrayReviews = arrayReviews.concat(listReviewsData.results)
+
+            console.log(arrayReviews);
             setNewsList(listaNoticias);
+            setReviews(arrayReviews);
         }
         fetchData();
     }, []);
     
+    
+
+
+
     const handleClick = () => {
         setIsShow(!isShow);
         setMensaje('');
@@ -209,12 +224,34 @@ function Noticias() {
         setMensaje(null);
     }
     
-    if (newsList === undefined) {
+    if (newsList === undefined || reviews === undefined) {
         return <> Cargando...  </> 
+    }
+
+    const contentHardCode = [ 'ESTO ES UN TÍTULO DE EJEMPLO', 'TÍTULO 2' ]
+
+    const contentStyle = {
+        height: '160px',
+        color: '#fff',
+        lineHeight: '160px',
+        textAlign: 'center',
+        background: '#393838',
+      };
+
+    const contentDiv = {
+        background: '#fff',
+        height: '160px',
+        color: '#fff',
+        lineHeight: '160px',
     }
 
     return (
         <Fragment>
+            <p>
+                {/* {reviews} */}
+            </p>
+
+
             <Title level={2}>Lista de noticias</Title>
 
             <List
