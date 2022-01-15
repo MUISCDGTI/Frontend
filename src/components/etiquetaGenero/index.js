@@ -31,6 +31,7 @@ const EtiquetaGenero = ({
       if (!s) {
         createSuscription({
           subject: valor,
+          category: "Noticia",
           mail: "rottenpotatoesgrupo3fis@gmail.com",
         });
       }
@@ -71,15 +72,13 @@ const EtiquetaGenero = ({
   }, [suscriptions, setChecked, valor]);
 
   return (
-    <div>
-      <CheckableTag
-        key={valor}
-        checked={checked}
-        onChange={(checked) => setChecked(checked)}
-      >
-        {valor}
-      </CheckableTag>
-    </div>
+    <CheckableTag
+      key={valor}
+      checked={checked}
+      onChange={(checked) => setChecked(checked)}
+    >
+      {valor}
+    </CheckableTag>
   );
 };
 
