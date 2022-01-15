@@ -22,10 +22,12 @@ const MainPage = () => {
                 </Breadcrumb>
                 <div className="site-layout-content">Content</div>
                 <Noticias />
-                <EtiquetaGenero valor='Comedia' />
-                <EtiquetaGenero valor='Drama' />
-                <EtiquetaGenero valor='Terror' />
-                <EtiquetaGenero valor='Informatica' />
+                <EtiquetaGenero valor='Comedia' categoria='Noticia'/>
+                <EtiquetaGenero valor='Drama' categoria='Noticia'/>
+                <EtiquetaGenero valor='Terror' categoria='Noticia'/>
+                <EtiquetaGenero valor='Informatica' categoria='Noticia'/>
+                <EtiquetaGenero valor='Informatica' categoria='Noticia'/>
+                <EtiquetaGenero valor='Informatica' categoria='Pelicula'/>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>

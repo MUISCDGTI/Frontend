@@ -11,6 +11,7 @@ const { CheckableTag } = Tag;
 
 const EtiquetaGenero = ({
   valor,
+  categoria,
   getSuscriptions,
   createSuscription,
   deleteSuscription,
@@ -31,7 +32,7 @@ const EtiquetaGenero = ({
       if (!s) {
         createSuscription({
           subject: valor,
-          category: "Noticia",
+          category: categoria,
           mail: "rottenpotatoesgrupo3fis@gmail.com",
         });
       }
@@ -55,7 +56,7 @@ const EtiquetaGenero = ({
   }, [deleteSuscription, getSuscriptions, checked]);
 
   useEffect(() => {
-    getSuscriptions("rottenpotatoesgrupo3fis@gmail.com");
+    getSuscriptions("rottenpotatoesgrupo3fis@gmail.com", categoria);
   }, [getSuscriptions]);
 
   useEffect(() => {
@@ -88,6 +89,7 @@ EtiquetaGenero.propTypes = {
   deleteSuscription: PropTypes.func.isRequired,
   suscriptions: PropTypes.arrayOf(Suscription),
   valor: PropTypes.string,
+  categoria: PropTypes.string,
 };
 
 const mapStateToProps = ({ suscriptions: { suscriptions } }) => ({

@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const endPoint = 'https://suscripciones-amaliof96.cloud.okteto.net/api/v1/suscripciones';
 
-export const getSuscriptions = (email) => axios.get(
-    endPoint, { params:  {email: email} },
+export const getSuscriptions = (email, categoria) => axios.get(
+    endPoint, { params:  {email: email, category:categoria} },
 ).then((res) => res).catch((error) => error.response);
 
 export const createSuscription = (suscription) => axios.post(
