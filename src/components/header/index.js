@@ -1,4 +1,3 @@
-import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Menu } from 'antd';
@@ -17,5 +16,4 @@ const CustomHeader = () => {
         </div>
     );
 }
-
 export default CustomHeader;

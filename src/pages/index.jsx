@@ -1,9 +1,8 @@
-import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
-import { Layout, Breadcrumb } from 'antd';
-import Noticias from '../components/noticias';
+import { Layout } from 'antd';
 import CustomHeader from '../components/header';
+import Films from '../components/peliculas/Films.js';
 
 const { Header, Content, Footer } = Layout;
 
@@ -14,17 +13,16 @@ const MainPage = () => {
                 <CustomHeader />
             </Header>
             <Content style={{ padding: '0 50px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className="site-layout-content">Content</div>
-                <Noticias />
+                
+                <div className="site-layout-content">Lista de películas
+
+                <Films />
+
+                </div>
+
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
     );
 }
-
 export default MainPage;
