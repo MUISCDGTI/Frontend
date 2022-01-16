@@ -79,6 +79,7 @@ function Noticias() {
             reviewsFormatted[i].description = reviews[i].headline
             reviewsFormatted[i].urlImagen = "https://play-lh.googleusercontent.com/gfmioo4VBEtPucdVNIYAyaqruXFRWDCc0nsBLORfOS0_s9r5r00Bn_IpjhCumkEusg"
             reviewsFormatted[i].text = "Crítica completa disponible en el siguiente enlace " + reviews[i].link.url
+            reviewsFormatted[i].author = reviews[i].byline
         }
         // reviewsFormatted.title = "NYT REVIEW: " + reviews[0].display_title
         // reviewsFormatted.description = reviews[0].headline
@@ -344,6 +345,7 @@ function Noticias() {
 
 
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
+                        {<><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>}
                         <Button type="primary" onClick={() => {
                             handleClickEdit(item)}}>
                             Editar
