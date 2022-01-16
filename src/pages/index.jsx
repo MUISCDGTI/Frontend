@@ -6,6 +6,7 @@ import Noticias from '../components/news';
 import Usuario from '../components/usuario';
 
 import CustomHeader from '../components/header';
+import EtiquetaGenero from '../components/etiquetaGenero';
 
 const { Header, Content, Footer } = Layout;
 
