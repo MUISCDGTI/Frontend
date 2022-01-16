@@ -346,6 +346,11 @@ function Noticias() {
 
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
                         {<><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>}
+                        {<><Text type="secondary"> Etiquetas relacionadas:  {item.tags}</Text><br /><br /></>}
+
+                        {item.tags.map((tag) => <EtiquetaGenero valor={tag} categoria="Noticia"></EtiquetaGenero>)}
+                        
+
                         <Button type="primary" onClick={() => {
                             handleClickEdit(item)}}>
                             Editar
