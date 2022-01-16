@@ -1,5 +1,5 @@
 class NewsApi {
-    static API_BASE_URL = "/api/v1";
+    static API_BASE_URL = "https://api-fis-josenggn.cloud.okteto.net/api/v1";
 
     static requestHeaders() {
         return {}
@@ -7,7 +7,7 @@ class NewsApi {
 
     static async getAllNews () {
         const headers = this.requestHeaders();
-        const request = new Request(NewsApi.API_BASE_URL + "/news", {
+        const request = new Request(NewsApi.API_BASE_URL + "/news?apikey=1ad4ca7f-f0bd-4f36-947b-2effe8a07720", {
             method: 'GET',
             headers: headers
         });

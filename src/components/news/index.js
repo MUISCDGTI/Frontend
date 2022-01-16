@@ -36,7 +36,8 @@ function Noticias() {
       }
     useEffect(() => {
         const fetchData = async () =>  {
-            const listaNoticias = await NewsApi.getAllNews();       
+            const listaNoticias = await NewsApi.getAllNews();    
+            // const listaNoticias = [];
             const listReviews = await fetch("https://api.nytimes.com/svc/movies/v2/reviews/picks.json?api-key=U3roLWkxcOF5EjCBKH2ak5SvpiyylvHj");
             const listReviewsData = await listReviews.json();
             console.log("Noticias BD")
@@ -137,7 +138,7 @@ function Noticias() {
                 setMensaje('');
                 setIsShow(!isShow);
 
-                fetch('/api/v1/news', {
+                fetch('https://api-fis-josenggn.cloud.okteto.net/api/v1/news?apikey=1ad4ca7f-f0bd-4f36-947b-2effe8a07720', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -174,7 +175,7 @@ function Noticias() {
         console.log(newNoticia._id)
         console.log(oldNoticia._id)
         console.log("INICIO FETCH")
-        fetch('/api/v1/news/' + oldNoticia._id, {
+        fetch('https://api-fis-josenggn.cloud.okteto.net/api/v1/news/' + oldNoticia._id + "?apikey=1ad4ca7f-f0bd-4f36-947b-2effe8a07720", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -237,7 +238,7 @@ function Noticias() {
         message.success('Noticia eliminada correctamente');
         console.log(noticia)
         console.log(noticia._id)
-        fetch("/api/v1/news/" + noticia._id, {
+        fetch("https://api-fis-josenggn.cloud.okteto.net/api/v1/news/" + noticia._id + "?apikey=1ad4ca7f-f0bd-4f36-947b-2effe8a07720", {
             method: 'DELETE'
         })
         setNewsList((prevNewsList) => {
@@ -346,17 +347,24 @@ function Noticias() {
 
 
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
-                        {<><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>}
-                        {/* {<><Text type="secondary"> Etiquetas relacionadas:  {item.tags}</Text><br /><br /></>} */}
+                        { item.relatedMovies === undefined |  item.relatedMovies.length > 0   ?
                         
-                        
-
-                        { item.tags === undefined ?
-
-                        item.tags.map((tag) => <EtiquetaGenero valor={tag} categoria="Noticia"></EtiquetaGenero>)
-                        :
-                        <></>
+                        <><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>
+                           : 
+                            <></>
+                            
                         }
+                        
+                        
+
+                        {  item.tags === undefined?
+
+                        <></>
+                        :
+                        item.tags.map((tag) => <EtiquetaGenero valor={tag} categoria="Noticia"></EtiquetaGenero>)
+
+                        }
+                        <br/>
                         
 
                         <Button type="primary" onClick={() => {
