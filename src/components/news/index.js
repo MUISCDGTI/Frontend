@@ -41,18 +41,50 @@ function Noticias() {
             console.log("Noticias BD")
             console.log(listaNoticias)
             console.log("Reviews NYT")
-            let arrayReviews = [];
-            arrayReviews = arrayReviews.concat(listReviewsData.results)
-
+            let arrayReviews = listReviewsData.results
             console.log(arrayReviews);
+
+            let formateado = formatReviews(arrayReviews)
+            console.log("FORMATEADO")
+            console.log(formateado)
+            // listaNoticias.push(formateado)
+            Array.prototype.push.apply(listaNoticias, formateado);
+            console.log("FINAL LISTA")
+            console.log(listaNoticias)
             setNewsList(listaNoticias);
-            setReviews(arrayReviews);
+            // setReviews(arrayReviews);
         }
         fetchData();
     }, []);
     
     
-
+    function formatReviews(reviews) {
+        console.log("FORMATEANDO")
+        console.log(reviews)
+        console.log(reviews[0].display_title)
+        let reviewsFormatted = [{
+            title: 'SAMPLE TITLE',
+            description: "SAMPLE DESCRIPTION",
+            relatedMovies: [],
+            text: '-'
+          }, {
+            title: 'SAMPLE TITLE',
+            description: "SAMPLE DESCRIPTION",
+            relatedMovies: [],
+            text: '-'
+          }];
+        console.log(reviewsFormatted)
+        for (let i = 0; i < 2 ; i++){
+            reviewsFormatted[i].title = "NYT REVIEW: " + reviews[i].display_title
+            reviewsFormatted[i].description = reviews[i].headline
+            reviewsFormatted[i].urlImagen = "https://play-lh.googleusercontent.com/gfmioo4VBEtPucdVNIYAyaqruXFRWDCc0nsBLORfOS0_s9r5r00Bn_IpjhCumkEusg"
+            reviewsFormatted[i].text = "Crítica completa disponible en el siguiente enlace " + reviews[i].link.url
+        }
+        // reviewsFormatted.title = "NYT REVIEW: " + reviews[0].display_title
+        // reviewsFormatted.description = reviews[0].headline
+        // reviewsFormatted.urlImagen = "https://play-lh.googleusercontent.com/gfmioo4VBEtPucdVNIYAyaqruXFRWDCc0nsBLORfOS0_s9r5r00Bn_IpjhCumkEusg";
+        return reviewsFormatted
+    }
 
 
     const handleClick = () => {
@@ -225,6 +257,8 @@ function Noticias() {
     }
     
     if (newsList === undefined || reviews === undefined) {
+        console.log("NEWS LIST ES " + newsList)
+        console.log("REVIEWS ES " + reviews)
         return <> Cargando...  </> 
     }
 
@@ -248,7 +282,7 @@ function Noticias() {
     return (
         <Fragment>
             <p>
-                {/* {reviews} */}
+                {/* { reviews[0] } */}
             </p>
 
 
@@ -263,9 +297,10 @@ function Noticias() {
                     },
                     pageSize: 3,
                 }}
-                dataSource={newsList}
-
+                // dataSource={newsList.slice(0,newsList.length-2)}
+                dataSource = {newsList}
                 renderItem={item => (
+                    
                     <List.Item
                         key={item.title}
                         extra={
@@ -276,7 +311,9 @@ function Noticias() {
                             />
                         }
                     >
+
                         <List.Item.Meta
+
                             avatar={<Avatar src={item.avatar} />}
                             title={<a href={item.href}>{item.title}</a>}
                             description={item.description}
