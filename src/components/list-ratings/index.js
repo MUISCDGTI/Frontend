@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   List,
   Dropdown,
@@ -12,40 +12,15 @@ import {
   Avatar,
   Form,
   Modal,
-  InputNumber
+  InputNumber,
 } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import "./index.css";
 import moment from "moment";
+import RatingsService from "../../services/ratings-service";
 
 const RatingApp = (props) => {
-
-  var ratings = [
-    {
-      _id: "jsiodlekfn4",
-      value: "1.5",
-      description: "Mala pelicula",
-      film: "1",
-      user: "11",
-      date: "2020-11-02T23:00:00.000+00:00",
-    },
-    {
-      _id: "erogpiwnm5",
-      value: "4.5",
-      description: "Buena pelicula",
-      film: "15",
-      user: "19",
-      date: "2021-12-02T23:00:00.000+00:00",
-    },
-    {
-      _id: "srvwmpe1",
-      value: "3",
-      description: "Guay",
-      film: "15",
-      user: "11",
-      date: "2021-12-16T17:00:00.000+00:00",
-    },
-  ];
+  const [ratings, setRatings] = useState([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -53,17 +28,21 @@ const RatingApp = (props) => {
 
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(true);
 
-  const updateRating = () => {
-    setIsModalVisible(true);
-    setIsRatingVisible(true);
-    setIsDescriptionVisible(false);
-  };
+  const [ratingId, setId] = useState("");
 
-  const updateDescription = () => {
-    setIsModalVisible(true);
-    setIsDescriptionVisible(true);
-    setIsRatingVisible(false);
-  };
+  const [useform] = Form.useForm();
+
+  useEffect(() => {
+    async function fetchData() {
+      const list = await RatingsService.getAllRatings();
+      if (props.page === "film") {
+        setRatings(list.filter((rating) => rating.film === props.id));
+      } else if (props.page === "user") {
+        setRatings(list.filter((rating) => rating.user === props.id));
+      }
+    }
+    fetchData();
+  }, [props.id, props.page]);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -75,6 +54,107 @@ const RatingApp = (props) => {
     setIsModalVisible(false);
   };
 
+  const updateRating = (rating) => {
+    setId(rating);
+    setIsModalVisible(true);
+    setIsRatingVisible(true);
+    setIsDescriptionVisible(false);
+  };
+
+  const updateDescription = () => {
+    setIsModalVisible(true);
+    setIsDescriptionVisible(true);
+    setIsRatingVisible(false);
+  };
+
+  const deleteRating = async (rating) => {
+    await RatingsService.deleteRating(rating);
+    setTimeout(async () => {
+      const list = await RatingsService.getAllRatings();
+      if (props.page === "film") {
+        setRatings(list.filter((rating) => rating.film === props.id));
+      } else if (props.page === "user") {
+        setRatings(list.filter((rating) => rating.user === props.id));
+      }
+    }, 300);
+  };
+
+  const onSubmit = async () => {
+    if (isModalVisible) {
+      if (isRatingVisible && isDescriptionVisible) {
+        await RatingsService.createRating(useform);
+      } else if (isDescriptionVisible && !isRatingVisible) {
+        await RatingsService.updateDescription(useform, ratingId);
+      } else if (!isDescriptionVisible & isRatingVisible) {
+        await RatingsService.updateRating(useform, ratingId);
+      }
+    }
+    setTimeout(async () => {
+      const list = await RatingsService.getAllRatings();
+      if (props.page === "film") {
+        setRatings(list.filter((rating) => rating.film === props.id));
+      } else if (props.page === "user") {
+        setRatings(list.filter((rating) => rating.user === props.id));
+      }
+      setIsModalVisible(false);
+    }, 300);
+  };
+
+  const orderBy = async (order) => {
+    const list = await RatingsService.orderBy(order);
+    if (props.page === "film") {
+      setRatings(list.filter((rating) => rating.film === props.id));
+    } else if (props.page === "user") {
+      setRatings(list.filter((rating) => rating.user === props.id));
+    }
+  };
+
+  const getByDate = async (dates) => {
+    const list = await RatingsService.getByDate(
+      moment(dates[0]).format("YYYY-MM-DD") +
+        ":" +
+        moment(dates[1]).format("YYYY-MM-DD")
+    );
+    if (props.page === "film") {
+      setRatings(list.filter((rating) => rating.film === props.id));
+    } else if (props.page === "user") {
+      setRatings(list.filter((rating) => rating.user === props.id));
+    }
+  };
+
+  const getByRange = async (range) => {
+    const list = await RatingsService.getByRange(range);
+    if (props.page === "film") {
+      setRatings(list.filter((rating) => rating.film === props.id));
+    } else if (props.page === "user") {
+      setRatings(list.filter((rating) => rating.user === props.id));
+    }
+  };
+
+  const getByDescription = (description) => {
+    console.log(description.nativeEvent.srcElement.defaultValue)
+    setTimeout(async () => {
+      var list = []
+      if (
+        description.nativeEvent.srcElement.defaultValue !== null &&
+        description.nativeEvent.srcElement.defaultValue !== "undefined" &&
+        description.nativeEvent.srcElement.defaultValue !== ''
+      ) {
+        list = await RatingsService.getByDescription(
+          description.nativeEvent.srcElement.defaultValue
+        );
+        
+      } else {
+        list = await RatingsService.getAllRatings();
+      }
+      if (props.page === "film") {
+        setRatings(list.filter((rating) => rating.film === props.id));
+      } else if (props.page === "user") {
+        setRatings(list.filter((rating) => rating.user === props.id));
+      }
+    }, 300);
+  };
+
   const form = (
     <Form
       name="basic"
@@ -82,40 +162,47 @@ const RatingApp = (props) => {
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       autoComplete="off"
+      form={useform}
     >
-      {isRatingVisible?
+      {isRatingVisible ? (
         <Form.Item
           label="Puntuación"
-          name="rating"
-          rules={[{ 
-            required: true, 
-            type: 'number',
-            min: 0,
-            max: 5,
-            message: 'La puntuacion tiene que estar entre 0 y 5, y no estar vacía',
-          }]}
+          name="value"
+          rules={[
+            {
+              required: true,
+              type: "number",
+              min: 0,
+              max: 5,
+              message:
+                "La puntuacion tiene que estar entre 0 y 5, y no estar vacía",
+            },
+          ]}
         >
           <InputNumber />
         </Form.Item>
-      :null}
+      ) : null}
 
-      {isDescriptionVisible?
+      {isDescriptionVisible ? (
         <Form.Item
           label="Comentario"
           name="description"
-          rules={[{ 
-            required: true,
-            type: 'string',
-            max: 500, 
-            message: 'La introducción debe ser menor de 500 caracteres y no estar vacía' 
-          }]}
+          rules={[
+            {
+              required: true,
+              type: "string",
+              max: 500,
+              message:
+                "La introducción debe ser menor de 500 caracteres y no estar vacía",
+            },
+          ]}
         >
           <Input.TextArea placeholder="Esto es un comentario" />
         </Form.Item>
-      :null}
+      ) : null}
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" onClick={onSubmit}>
           Enviar
         </Button>
       </Form.Item>
@@ -130,20 +217,20 @@ const RatingApp = (props) => {
       footer={[
         <Button key="back" onClick={handleCancel}>
           Volver
-        </Button>
+        </Button>,
       ]}
     >
-      <p>{form}</p>
-  </Modal>
+      <div>{form}</div>
+    </Modal>
   );
 
   const menu = (
     <Menu>
       <Menu.Item>
-        <span>Ascendente</span>
+        <span onClick={() => orderBy("asc")}>Ascendente</span>
       </Menu.Item>
       <Menu.Item>
-        <span>Descendente</span>
+        <span onClick={() => orderBy("des")}>Descendente</span>
       </Menu.Item>
     </Menu>
   );
@@ -152,11 +239,6 @@ const RatingApp = (props) => {
   const { RangePicker } = DatePicker;
   const { Panel } = Collapse;
 
-  if (props.page === "film") {
-    ratings = ratings.filter((rating) => rating.film === props.id);
-  } else if (props.page === "user") {
-    ratings = ratings.filter((rating) => rating.user === props.id);
-  }
   return (
     <div className="list">
       <h2 className="list-header">Valoraciones</h2>
@@ -164,18 +246,33 @@ const RatingApp = (props) => {
         Crear
       </Button>
       {modal}
-      <p></p>
       <Collapse>
         <Panel header="Filtros">
           <div className="filters">
             <Dropdown overlay={menu}>
-              <a className="dropdown">
+              <span className="dropdown">
                 Ordenar por <DownOutlined />
-              </a>
+              </span>
             </Dropdown>
-            <RangePicker placeholder = {["Fecha inicio", "Fecha fin"]} />
-            <span className="stars-range">Rango de estrellas<Slider range defaultValue={[1, 5]} max={5} min={1} /></span>
-            <Search placeholder="Contenido en el comentario..." allowClear />
+            <RangePicker
+              placeholder={["Fecha inicio", "Fecha fin"]}
+              onChange={(value) => getByDate(value)}
+            />
+            <span className="stars-range">
+              Rango de estrellas
+              <Slider
+                range
+                defaultValue={[1, 5]}
+                max={5}
+                min={1}
+                onChange={(value) => getByRange(value)}
+              />
+            </span>
+            <Search
+              placeholder="Contenido en el comentario..."
+              allowClear
+              onChange={(value) => getByDescription(value)}
+            />
           </div>
         </Panel>
       </Collapse>
@@ -192,15 +289,30 @@ const RatingApp = (props) => {
             actions={
               props.page === "user"
                 ? [
-                    <Button type="primary" onClick={updateRating} primary ghost>
+                    <Button
+                      type="primary"
+                      onClick={() => updateRating(rating._id)}
+                      primary
+                      ghost
+                    >
                       Puntuación
                     </Button>,
-                    <Button type="primary" onClick={updateDescription} primary ghost>
+                    <Button
+                      type="primary"
+                      onClick={() => updateDescription(rating._id)}
+                      primary
+                      ghost
+                    >
                       Comentario
                     </Button>,
-                    <Button type="primary" danger ghost>
+                    <Button
+                      type="primary"
+                      onClick={() => deleteRating(rating._id)}
+                      danger
+                      ghost
+                    >
                       Borrar
-                    </Button>
+                    </Button>,
                   ]
                 : null
             }
