@@ -34,6 +34,9 @@ function AddFilm(props){
         }
         setTimeout(async () => {
           }, 300);
+
+          
+
         setLoading(false);
         useForm.resetFields();
         navigate('/films');

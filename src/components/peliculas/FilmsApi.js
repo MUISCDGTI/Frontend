@@ -2,13 +2,12 @@ class FilmsApi {
     static API_BASE_URL = "/api/v1/films";
 
     static requestHeaders() {
-        return {};
+        return {'content-type': 'text/json'};
     }
 
     static async getAllFilms() {
         const headers = this.requestHeaders();
-        let request = new Request(FilmsApi.API_BASE_URL + "//?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
-            //"", {
+        const request = new Request(FilmsApi.API_BASE_URL + "/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
             method: 'GET',
             headers: headers
         });
@@ -21,7 +20,52 @@ class FilmsApi {
         return response.json();
     }
 
-    static async postFilm(film) {
+    static async getFilm(id) {
+        const headers = this.requestHeaders();
+        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+            method: 'GET',
+            headers: headers
+        });
+        
+        const response = await fetch(request);
+        if (! response.ok) {
+            throw Error("Response not valid" + response.status);
+        }
+        return response.json();
+    }
+
+
+    static updateRating(film,id) {;
+        let body = {...film.getFieldsValue()};
+    
+        const request = new Request(FilmsApi.API_BASE_URL + "/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+    
+        fetch(request)
+          .catch((err) => console.log(err))
+      }
+
+
+    static /*async*/ deleteFilm(id) {
+        const headers = this.requestHeaders();
+        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+              }
+        });
+        
+        fetch(request).catch((err) => console.log(err))
+        //return response.json();
+    }
+
+
+    static /*async */postFilm(film) {
 
         let body = {...film.getFieldsValue()};
         body['released_at']= body['released_at'].toISOString().split('T')[0]
@@ -36,8 +80,9 @@ class FilmsApi {
             body: JSON.stringify(body),
         });
 
-        let response = fetch(request).catch((err) => console.log(err));
-        return response.json();
+        /*let response = fetch(request).catch((err) => console.log(err));
+        return response.json();*/
+        fetch(request).catch((err) => console.log(err))
     }
 }
 

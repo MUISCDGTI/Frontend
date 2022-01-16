@@ -13,15 +13,15 @@ function EditFilm(props) {
 
     return (
         <tr>
-            <td><input  name="_id" value={_id} onChange={(event) => set_id(event.target.value)}/></td>
-            <td><input  name="title" value={title} onChange={(event) => setTitle(event.target.value)}/></td>
-            <td><input  name="genre" value={genre} onChange={(event) => setGenre(event.target.value)}/></td>
-            <td><input  name="released_at" value={released_at} onChange={(event) => setReleased_at(event.target.value)}/></td>
-            <td><input  name="poster" value={poster} onChange={(event) => setPoster(event.target.value)}/></td>
-            <td><input  name="director" value={director} onChange={(event) => setDirector(event.target.value)}/></td>
-            <td><input  name="original_language" value={original_language} onChange={(event) => setOriginal_language(event.target.value)}/></td>
-            <td><input  name="overview" value={overview} onChange={(event) => setOverview(event.target.value)}/></td>
-            <td><input  name="rating" value={rating} onChange={(event) => setRating(event.target.value)}/></td>
+            <td><input name="_id" value={_id} onChange={(event) => set_id(event.target.value)}/></td>
+            <td><input name="title" value={title} onChange={(event) => setTitle(event.target.value)}/></td>
+            <td><input name="genre" value={genre} onChange={(event) => setGenre(event.target.value)}/></td>
+            <td><input name="released_at" value={released_at} onChange={(event) => setReleased_at(event.target.value)}/></td>
+            <td><input name="poster" value={poster} onChange={(event) => setPoster(event.target.value)}/></td>
+            <td><input name="director" value={director} onChange={(event) => setDirector(event.target.value)}/></td>
+            <td><input name="original_language" value={original_language} onChange={(event) => setOriginal_language(event.target.value)}/></td>
+            <td><input name="overview" value={overview} onChange={(event) => setOverview(event.target.value)}/></td>
+            <td><input name="rating" value={rating} onChange={(event) => setRating(event.target.value)}/></td>
         </tr>
     )
 }

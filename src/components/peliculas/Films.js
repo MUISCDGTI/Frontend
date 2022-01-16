@@ -1,14 +1,15 @@
 import { Fragment, useEffect, useState } from 'react';
-import {Table, Row, Col, Button, Typography} from 'antd';
-import EditableFilm from './EditableFilm.js';
+import {Table, Row, Col, Button, Typography, Tag, Space} from 'antd';
+//import EditableFilm from './EditableFilm.js';
 import Alert from './Alert.js';
 //import NewFilm from './NewFilm.js';
 import FilmsApi from './FilmsApi.js';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, generatePath} from 'react-router-dom';
 
 function Films(props){
     const navigate = useNavigate();
     const [message,setMessage]=useState(null);
+    const [loadingDelete, setLoadingDelete] = useState(false);
     const [films, setFilms] = useState([]);
     const {Title} = Typography;
 
@@ -16,58 +17,77 @@ function Films(props){
         {
             title: 'id',
             dataIndex: '_id',
-            key: '_id'
+            key: '_id',
           },
         {
           title: 'Title',
           dataIndex: 'title',
-          key: 'title'
+          key: 'title',
+          render: (text, film) =>
+          <a onClick={function(e) {e.preventDefault();
+              navigate(generatePath("/films/:id", { id:film._id }))}}
+              >
+              {text}
+        </a>,
         },
         {
           title: 'Genre',
           dataIndex: 'genre',
-          key: 'genre'
-
+          key: 'genre',
+          render: genre => (
+            <>
+              {genre.map(genr => {
+                let color = 'geekblue';
+                return (
+                  <Tag color={color} key={genr}>
+                    {genr.toUpperCase()}
+                  </Tag>
+                );
+              })}
+            </>
+          ),
         },
         {
           title: 'Released at',
           dataIndex: 'released_at',
-          key: 'released_at'
+          key: 'released_at',
+          render: text => {return text.substring(0,10)}
         },
         {
           title: 'Poster',
           dataIndex: 'poster',
-          key: 'poster'
-
+          key: 'poster',
         },
         {
           title: 'Director',
           dataIndex: 'director',
-          key: 'director'
-
+          key: 'director',
         },
         {
           title: 'Original language',
           dataIndex: 'original_language',
-          key: 'original_language'
-
+          key: 'original_language',
         },
         {
           title: 'Overview',
           dataIndex: 'overview',
-          key: 'overview'
-
+          key: 'overview',
         },
         {
           title: 'Rating',
           dataIndex: 'rating',
-          key: 'rating'
+          key: 'rating',
         },
         {
             title: 'Action',
-            dataIndex: 'action',
-            key: 'action'
-          }
+            key: 'actions',
+            dataIndex: 'actions',
+            render: (text, film) => (
+            <Space size="middle">
+                <Button loading={loadingDelete} danger ghost onClick={()=> deleteFilm(film._id)}>Delete</Button>
+            </Space>
+            ),
+          },
     ];
     useEffect(() => {
         async function fetchFilms(){
@@ -81,24 +101,15 @@ function Films(props){
         fetchFilms();
     }, []);
     
-    const data = [{
-    }];
-
-    films.map((film) => {
-    data.push({
-        _id:film._id,
-        title: film.title,
-       genre: film.genre,
-       released_at: film.released_at,
-       poster: film.poster,
-       director: film.director,
-       original_language: film.original_language,
-       overview: film.overview,
-       rating: film.rating,
-    
-    })
-    return films;
-   });
+    const deleteFilm = async (id) => {
+        setLoadingDelete(true);
+        await FilmsApi.deleteFilm(id);
+        setTimeout(async () => {
+          const f = await FilmsApi.getAllFilms();
+          setFilms(f);
+        }, 300);
+        setLoadingDelete(false);
+    };
 
     function onAlertClose(){
         setMessage(null);
@@ -136,29 +147,6 @@ function Films(props){
         }
         return true;
     }
-
-    /*function onAddFilm(film){
-        const validation = validateFilmTitle(film);
-        if (! validation) {
-            return false;
-        }
-
-        if (films.find(f => f.title === film.title)) {
-            setMessage('Duplicated film');
-            return false;
-        }
-
-        setFilms((prevFilms) => {
-            if (! prevFilms.find(f => f.title === film.title)) {
-                return [...prevFilms, film];
-            } else {
-                setMessage('Duplicated film');
-                return prevFilms;
-            }
-        });
-        return true;
-    }*/
-
     const handleClick = () => {
         navigate('/addFilm');
     }
@@ -179,7 +167,8 @@ function Films(props){
                 <Row gutter={[40, 0]}>
                 <Col span={24}>
                 <Table columns={columns.filter(col => col.dataIndex !== '_id')}
-                dataSource={data}/>
+                dataSource={films}
+                rowKey="_id"/>
                 </Col>
                 </Row>
             </div>
