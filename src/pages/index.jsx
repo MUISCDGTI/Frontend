@@ -14,7 +14,7 @@ const MainPage = () => {
             </Header>
             <Content style={{ padding: '0 50px' }}>
                 
-                <div className="site-layout-content">Lista de películas
+                <div className="site-layout-content">
 
                 <Films />
 

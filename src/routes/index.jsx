@@ -1,16 +1,22 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 // require normalized overrides
+import AddFilmPage from '../pages/addFilm';
 import MainPage from '../pages/index';
 
 function Router() {
+    
     return (
         <BrowserRouter>
             <div>
-                <Routes>
-                    <Route path="/" element={<MainPage/>}>
-                    </Route>
-                </Routes>
+            <Routes>
+                <Route path="/addFilm" element={<AddFilmPage/>}> 
+                </Route>
+
+                <Route path="/films"  element={<MainPage/>}> 
+                </Route>
+                
+                <Route path="/" element={<Navigate to="/films"/>} />
+            </Routes>
             </div>
         </BrowserRouter>
     );

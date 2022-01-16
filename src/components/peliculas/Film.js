@@ -1,6 +1,7 @@
 function Film(props) {
     return(
             <tr>
+                <td>{props.film._id}</td>
                 <td>{props.film.title}</td>
                 <td>{props.film.genre}</td>
                 <td>{props.film.released_at}</td>
@@ -12,7 +13,7 @@ function Film(props) {
                 <td>
                 <button className="btn btn-primary" onClick={() => props.onEdit(props.film)}>Editar</button>
                 <button className="btn btn-primary" onClick={() => props.onDelete(props.film)}>Eliminar</button>
-            </td>
+                </td>
             </tr>
     )
 }

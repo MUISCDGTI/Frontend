@@ -2,20 +2,22 @@ import {useState} from 'react';
 
 function NewFilm(props){
     const[title, setTitle]=useState('');
-    const[director, setDirector]=useState('');
+    const[genre, setGenre]=useState('');
     const[released_at, setReleased_at]=useState('');
-    const[original_language, setOriginal_language]=useState('');
     const[poster, setPoster]=useState('');
+    const[director, setDirector]=useState('');
+    const[original_language, setOriginal_language]=useState('');
     const[overview, setOverview]=useState('');
     const[rating, setRating]=useState('');
 
     function onClick() {
         const newFilm = {
             title: title,
-            director: director,
+            genre: genre,
             released_at: released_at,
-            original_language: original_language,
             poster: poster,
+            director: director,
+            original_language: original_language,
             overview: overview,
             rating: rating
         };
@@ -23,10 +25,11 @@ function NewFilm(props){
 
         if (result) {
             setTitle('');
-            setDirector('');
+            setGenre('');
             setReleased_at('');
-            setOriginal_language('');
             setPoster('');
+            setDirector('');
+            setOriginal_language('');
             setOverview('');
             setRating('');
         }
@@ -41,7 +44,7 @@ function NewFilm(props){
             <td><input className="form-control" name="poster" value={poster} onChange={(event) => setPoster(event.target.value)}/></td>
             <td><input className="form-control" name="overview" value={overview} onChange={(event) => setOverview(event.target.value)}/></td>
             <td><input className="form-control" name="rating" value={rating} onChange={(event) => setRating(event.target.value)}/></td>
-
+            <td>&nbsp;</td>
             <td><button className="btn btn-primary" onClick={onClick}>Add film</button></td>
         </tr>
     )
