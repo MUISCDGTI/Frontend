@@ -2,7 +2,9 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './index.css';
 import { Layout, Breadcrumb } from 'antd';
+import Noticias from '../components/news';
 import Usuario from '../components/usuario';
+
 import CustomHeader from '../components/header';
 
 const { Header, Content, Footer } = Layout;
