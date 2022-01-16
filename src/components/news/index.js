@@ -8,6 +8,7 @@ import NewsApi from '../../NewsApi.js';
 import CreateNews from './CreateNews.js';
 import EditNews from './EditNews.js';
 import { type } from 'os';
+import EtiquetaGenero from '../etiquetaGenero/index.js'
 
 function Noticias() {
 
@@ -346,9 +347,16 @@ function Noticias() {
 
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
                         {<><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>}
-                        {<><Text type="secondary"> Etiquetas relacionadas:  {item.tags}</Text><br /><br /></>}
+                        {/* {<><Text type="secondary"> Etiquetas relacionadas:  {item.tags}</Text><br /><br /></>} */}
+                        
+                        
 
-                        {item.tags.map((tag) => <EtiquetaGenero valor={tag} categoria="Noticia"></EtiquetaGenero>)}
+                        { item.tags === undefined ?
+
+                        item.tags.map((tag) => <EtiquetaGenero valor={tag} categoria="Noticia"></EtiquetaGenero>)
+                        :
+                        <></>
+                        }
                         
 
                         <Button type="primary" onClick={() => {
