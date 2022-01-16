@@ -131,6 +131,30 @@ const RatingApp = (props) => {
     }
   };
 
+  const getByDescription = (description) => {
+    console.log(description.nativeEvent.srcElement.defaultValue)
+    setTimeout(async () => {
+      var list = []
+      if (
+        description.nativeEvent.srcElement.defaultValue !== null &&
+        description.nativeEvent.srcElement.defaultValue !== "undefined" &&
+        description.nativeEvent.srcElement.defaultValue !== ''
+      ) {
+        list = await RatingsService.getByDescription(
+          description.nativeEvent.srcElement.defaultValue
+        );
+        
+      } else {
+        list = await RatingsService.getAllRatings();
+      }
+      if (props.page === "film") {
+        setRatings(list.filter((rating) => rating.film === props.id));
+      } else if (props.page === "user") {
+        setRatings(list.filter((rating) => rating.user === props.id));
+      }
+    }, 300);
+  };
+
   const form = (
     <Form
       name="basic"
@@ -236,9 +260,19 @@ const RatingApp = (props) => {
             />
             <span className="stars-range">
               Rango de estrellas
-              <Slider range defaultValue={[1, 5]} max={5} min={1} onChange={(value) => getByRange(value)} />
+              <Slider
+                range
+                defaultValue={[1, 5]}
+                max={5}
+                min={1}
+                onChange={(value) => getByRange(value)}
+              />
             </span>
-            <Search placeholder="Contenido en el comentario..." allowClear />
+            <Search
+              placeholder="Contenido en el comentario..."
+              allowClear
+              onChange={(value) => getByDescription(value)}
+            />
           </div>
         </Panel>
       </Collapse>

@@ -67,6 +67,21 @@ class RatingsService {
     return response.json();
   }
 
+  static async getByDescription(description) {
+    const headers = this.requestHeaders();
+    const request = new Request(RatingsService.API_BASE_URL + "?description="+description, {
+      method: "GET",
+      headers: headers,
+    });
+
+    const response = await fetch(request);
+    if (!response.ok) {
+      throw Error("Respuesta no válida " + response.status);
+    }
+
+    return response.json();
+  }
+
   static createRating(rating) {;
     let body = {...rating.getFieldsValue()};
     body['film'] = 11;
