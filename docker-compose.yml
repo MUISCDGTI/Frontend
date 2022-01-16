@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+ 
+  frontend:
+    image: node:16.13.0-stretch
+    volumes:
+      - ./:/frontend
+    working_dir: /frontend
+    command: bash -c "npm i && npm run start"
+    expose:
+      - '3000'
+    ports:
+      - '3001:3000'
