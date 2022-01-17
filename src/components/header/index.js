@@ -15,11 +15,9 @@ function CustomHeader () {
     };
 
     return (
-        <div>
-            <div>
-                Rotten Potatoes
-            </div>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['films']}>
+        <div className="container-menu">
+            <div className="title">Rotten Potatoes</div>
+            <Menu className="lista" title="Rotten Potatoes" theme="dark" mode="horizontal" defaultSelectedKeys={['films']}>
                 <Menu.Item key='films' onClick={onClickFilm}>Películas</Menu.Item>
                 <Menu.Item key='news' onClick={onClickNew}>Noticias</Menu.Item>
                 <Menu.Item key='user'>Usuario</Menu.Item>
