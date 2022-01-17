@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Input, Form, Typography, Button, Select } from 'antd';
+import {useNavigate} from 'react-router-dom';
 
 function EditFilm(props) {
     const[title, setTitle] = useState(props.film.title);
@@ -10,6 +11,8 @@ function EditFilm(props) {
     const[overview, setOverview] = useState(props.film.overview);
     
     const { Title } = Typography;
+
+    const navigate = useNavigate();
 
     function onClick() {
         const editFilms ={
@@ -32,6 +35,8 @@ function EditFilm(props) {
         }
 
         props.updateFilm(editFilms);
+
+        navigate('/films');
     }
     return (
         <div>
@@ -61,7 +66,6 @@ function EditFilm(props) {
                 <Form.Item name="genre" label="Género"
                 rules={[
                   {
-                    required: true,
                     message: 'Por favor, selecciona un género',
                     type: 'array'
                   }
