@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import {Table, Row, Col, Button, Typography, Tag, Space} from 'antd';
 import Alert from './Alert.js';
-import FilmsApi from './FilmsApi.js';
+import FilmsApi from '../../services/films-service.js';
 import {useNavigate, generatePath} from 'react-router-dom';
 
 function Films(props){
@@ -16,7 +16,7 @@ function Films(props){
             title: 'id',
             dataIndex: '_id',
             key: '_id',
-          },
+        },
         {
           title: 'Title',
           dataIndex: 'title',

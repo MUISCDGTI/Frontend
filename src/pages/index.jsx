@@ -6,7 +6,7 @@ import Usuario from '../components/usuario';
 import CustomHeader from '../components/header';
 import EtiquetaGenero from '../components/etiquetaGenero';
 
-import Films from '../components/peliculas/Films.js';
+import Films from '../components/films/Films.js';
 
 const { Header, Content, Footer } = Layout;
 

@@ -9,7 +9,6 @@ function Film(props) {
                 <td class="ant-table-cell">{props.film.director}</td>
                 <td class="ant-table-cell">{props.film.original_language}</td>
                 <td class="ant-table-cell">{props.film.overview}</td>
-                <td class="ant-table-cell">{props.film.rating}</td>
                 <td class="ant-table-cell">
                 <button onClick={() => props.onDelete(props.film)}>Eliminar</button>
                 </td>

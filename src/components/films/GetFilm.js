@@ -1,8 +1,8 @@
 import {useState, Fragment, useEffect} from 'react';
 import {Row, Col, Typography, Button, List} from 'antd';
 import {useNavigate, useParams} from 'react-router-dom';
-import FilmsApi from '../../components/peliculas/FilmsApi.js';
-import RatingApp from '../list-ratings';
+import FilmsApi from '../../services/films-service.js';
+import RatingApp from '../ratings';
 
 const GetFilm = () => {
     const { id } = useParams();

@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import { Layout } from 'antd';
 import CustomHeader from '../components/header';
-import GetFilm from '../components/getFilm/GetFilm.js';
+import GetFilm from '../components/films/GetFilm.js';
 
 const { Header, Content, Footer } = Layout;
 

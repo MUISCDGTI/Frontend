@@ -21,7 +21,6 @@ function EditFilm(props) {
             <td><input name="director" value={director} onChange={(event) => setDirector(event.target.value)}/></td>
             <td><input name="original_language" value={original_language} onChange={(event) => setOriginal_language(event.target.value)}/></td>
             <td><input name="overview" value={overview} onChange={(event) => setOverview(event.target.value)}/></td>
-            <td><input name="rating" value={rating} onChange={(event) => setRating(event.target.value)}/></td>
         </tr>
     )
 }

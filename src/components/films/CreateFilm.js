@@ -2,7 +2,7 @@ import {useState, Fragment} from 'react';
 import {Row, Col, Typography, Input, Form, Button, 
 Slider, Select, DatePicker} from 'antd';
 import {useNavigate} from 'react-router-dom';
-import FilmsApi from '../../components/peliculas/FilmsApi.js';
+import FilmsApi from '../../services/films-service.js';
 const dateFormat = 'YYYY-MM-DD';
 
 function AddFilm(props){
