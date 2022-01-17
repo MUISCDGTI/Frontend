@@ -30,7 +30,7 @@ const GetFilm = () => {
     }, []);
 
     function updateFilm(newFilm, oldFilm){
-        fetch('https://api-drorganvidez.cloud.okteto.net/api/v1/films/' + oldFilm._id + "?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        fetch('/api/v1/films/' + oldFilm._id + "?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

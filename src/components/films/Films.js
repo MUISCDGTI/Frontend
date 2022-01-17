@@ -4,7 +4,7 @@ import Alert from './Alert.js';
 import FilmsApi from '../../services/films-service.js';
 import {useNavigate, generatePath} from 'react-router-dom';
 
-function Films(props){
+function Films(){
     const navigate = useNavigate();
     const [message,setMessage]=useState(null);
     const [loadingDelete, setLoadingDelete] = useState(false);
