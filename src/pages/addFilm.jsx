@@ -1,33 +1,26 @@
 import 'antd/dist/antd.css';
 import './index.css';
-import { Layout, Breadcrumb } from 'antd';
-import Noticias from '../components/news';
-import Usuario from '../components/usuario';
+import { Layout } from 'antd';
 import CustomHeader from '../components/header';
-import EtiquetaGenero from '../components/etiquetaGenero';
-
-import Films from '../components/peliculas/Films.js';
+import AddFilm from '../components/createFilm/CreateFilm.js';
 
 const { Header, Content, Footer } = Layout;
 
-const MainPage = () => {
+const AddFilmPage = () => {
     return (
         <Layout className="layout">
             <Header>
                 <CustomHeader />
             </Header>
             <Content style={{ padding: '0 50px' }}>
-                
                 <div className="site-layout-content">
 
-                <Films />
+                <AddFilm />
 
                 </div>
-
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
     );
 }
-
-export default MainPage;
+export default AddFilmPage;
