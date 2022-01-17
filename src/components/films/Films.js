@@ -10,7 +10,6 @@ function Films(props){
     const [loadingDelete, setLoadingDelete] = useState(false);
     const [films, setFilms] = useState([]);
     const {Title} = Typography;
-
     const columns = [
         {
             title: 'id',
@@ -18,7 +17,7 @@ function Films(props){
             key: '_id',
         },
         {
-          title: 'Title',
+          title: 'Título',
           dataIndex: 'title',
           key: 'title',
           render: (text, film) =>
@@ -29,7 +28,7 @@ function Films(props){
         </a>,
         },
         {
-          title: 'Genre',
+          title: 'Género',
           dataIndex: 'genre',
           key: 'genre',
           render: genre => (
@@ -46,7 +45,7 @@ function Films(props){
           ),
         },
         {
-          title: 'Released at',
+          title: 'Fecha de emisión',
           dataIndex: 'released_at',
           key: 'released_at',
           render: text => {return text.substring(0,10)}
@@ -62,12 +61,12 @@ function Films(props){
           key: 'director',
         },
         {
-          title: 'Original language',
+          title: 'Idioma Original',
           dataIndex: 'original_language',
           key: 'original_language',
         },
         {
-          title: 'Overview',
+          title: 'Análisis',
           dataIndex: 'overview',
           key: 'overview',
         },
@@ -77,11 +76,12 @@ function Films(props){
             dataIndex: 'actions',
             render: (text, film) => (
             <Space size="middle">
-                <Button loading={loadingDelete} danger ghost onClick={()=> deleteFilm(film._id)}>Delete</Button>
+                <Button loading={loadingDelete} danger ghost onClick={()=> deleteFilm(film._id)}>Eliminar</Button>
             </Space>
             ),
           },
     ];
+
     useEffect(() => {
         async function fetchFilms(){
             try{
@@ -118,11 +118,11 @@ function Films(props){
                 <Row gutter={[40, 0]}>
                 <Col span={18}>
                     <Title level={2}>
-                    Film List
+                    Lista de Películas
                     </Title>
                     </Col>
                 <Col span={6}>
-                <Button onClick={handleClick} block>Add Film</Button>
+                <Button onClick={handleClick} primary block>Añadir Película</Button>
                 </Col>
                 </Row>
                 <Row gutter={[40, 0]}>
