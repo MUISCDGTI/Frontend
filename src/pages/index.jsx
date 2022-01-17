@@ -25,4 +25,5 @@ const MainPage = () => {
         </Layout>
     );
 }
+
 export default MainPage;

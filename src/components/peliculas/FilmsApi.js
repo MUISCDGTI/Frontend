@@ -1,5 +1,6 @@
 class FilmsApi {
     static API_BASE_URL = "/api/v1/films";
+    static API_KEY = "?apikey=06271241-163c-4b95-bcb3-880be1e0be95";
 
     static requestHeaders() {
         return {'content-type': 'text/json'};
@@ -7,7 +8,7 @@ class FilmsApi {
 
     static async getAllFilms() {
         const headers = this.requestHeaders();
-        const request = new Request(FilmsApi.API_BASE_URL + "/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        const request = new Request(FilmsApi.API_BASE_URL + "/" + FilmsApi.API_KEY, {
             method: 'GET',
             headers: headers
         });
@@ -22,7 +23,7 @@ class FilmsApi {
 
     static async getFilm(id) {
         const headers = this.requestHeaders();
-        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/" + FilmsApi.API_KEY, {
             method: 'GET',
             headers: headers
         });
@@ -38,7 +39,7 @@ class FilmsApi {
     static updateRating(film,id) {;
         let body = {...film.getFieldsValue()};
     
-        const request = new Request(FilmsApi.API_BASE_URL + "/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        const request = new Request(FilmsApi.API_BASE_URL + "/"+id+"/" + FilmsApi.API_KEY, {
           method: "PUT",
           body: JSON.stringify(body),
           headers: {
@@ -52,8 +53,7 @@ class FilmsApi {
 
 
     static /*async*/ deleteFilm(id) {
-        const headers = this.requestHeaders();
-        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        const request = new Request(FilmsApi.API_BASE_URL +"/"+id+"/" + FilmsApi.API_KEY, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/json"
@@ -72,7 +72,7 @@ class FilmsApi {
 
         console.log(JSON.stringify(body));
         
-        const request = new Request(FilmsApi.API_BASE_URL + "/?apikey=06271241-163c-4b95-bcb3-880be1e0be95", {
+        const request = new Request(FilmsApi.API_BASE_URL + "/" + FilmsApi.API_KEY, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
