@@ -3,6 +3,7 @@ import {Table, Row, Col, Button, Typography, Tag, Space} from 'antd';
 import Alert from './Alert.js';
 import FilmsApi from '../../services/films-service.js';
 import {useNavigate, generatePath} from 'react-router-dom';
+import EtiquetaGenero from '../etiquetaGenero/index.js';
 
 function Films(){
     const navigate = useNavigate();
@@ -34,11 +35,9 @@ function Films(){
           render: genre => (
             <>
               {genre.map(genr => {
-                let color = 'geekblue';
                 return (
-                  <Tag color={color} key={genr}>
-                    {genr.toUpperCase()}
-                  </Tag>
+                  <EtiquetaGenero valor={genr} categoria="Pelicula">
+                  </EtiquetaGenero>
                 );
               })}
             </>
