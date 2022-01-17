@@ -317,7 +317,7 @@ function Noticias() {
 
                         <List.Item.Meta
 
-                            avatar={<Avatar src={item.avatar} />}
+                            avatar={<Avatar src={"https://joeschmoe.io/api/v1/random"} />}
                             title={<a href={item.href}>{item.title}</a>}
                             description={item.description}
                         />
