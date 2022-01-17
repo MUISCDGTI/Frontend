@@ -1,8 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import {Table, Row, Col, Button, Typography, Tag, Space} from 'antd';
-//import EditableFilm from './EditableFilm.js';
 import Alert from './Alert.js';
-//import NewFilm from './NewFilm.js';
 import FilmsApi from './FilmsApi.js';
 import {useNavigate, generatePath} from 'react-router-dom';
 
@@ -72,11 +70,6 @@ function Films(props){
           title: 'Overview',
           dataIndex: 'overview',
           key: 'overview',
-        },
-        {
-          title: 'Rating',
-          dataIndex: 'rating',
-          key: 'rating',
         },
         {
             title: 'Action',

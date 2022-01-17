@@ -138,13 +138,6 @@ function AddFilm(props){
                 <Input placeholder="Film overview" />
                 </Form.Item>
 
-                <Form.Item name="rating" label="Rating">
-                  <Slider  min={0}
-                  precision={1}
-                  step={0.1}
-                  max={10} />
-
-                </Form.Item>
                 <div style={{textAlign: "right"}}>
                     <Button type="primary" loading={loading} onClick={onSubmit}>
                         Save

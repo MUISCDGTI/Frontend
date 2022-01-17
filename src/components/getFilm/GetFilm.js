@@ -4,23 +4,18 @@ import {useNavigate, useParams} from 'react-router-dom';
 import FilmsApi from '../../components/peliculas/FilmsApi.js';
 import RatingApp from '../list-ratings';
 
-const GetFilm = (props) => {
+const GetFilm = () => {
     const { id } = useParams();
     const [film, setFilm]=useState([]);
 
     const navigate = useNavigate();
     const [Title] = useState(Typography);
 
-    const data = [
-        'id: '+ id,
-      ];
-
     useEffect(() => {
         async function fetchFilm(){
             try{
-                const f = await FilmsApi.getFilm(id);
-                console.log(f);
-                setFilm(f);
+                const film = await FilmsApi.getFilm(id);
+                setFilm(film);
             } catch(error){
                 console.log("Could not connect with server " + error);
             }
@@ -28,14 +23,16 @@ const GetFilm = (props) => {
         fetchFilm();
     }, []);
 
-    const infoList = (<List
-      size="large"
-      header={<div>Película: {props.id}</div>}
-      footer={<div>Footer</div>}
-      bordered
-      dataSource={data}
-      renderItem={item => <List.Item >{item}</List.Item>}
-    />)
+    const infoList = (
+        <div>
+          <p>Título: {film.title}</p>
+          <p>Género: {film.genre}</p>
+          <p>Poster: {film.poster}</p>
+          <p>Director: {film.director}</p>
+          <p>Original Language: {film.original_language}</p>
+          <p>Overview: {film.overview}</p>
+        </div>
+    );
 
     return (
         <Fragment>
@@ -48,9 +45,8 @@ const GetFilm = (props) => {
                     </Col>
                 </Row>
                 <Row gutter={[40, 0]}>
-                <Col span={18}>
-                
-                </Col>
+                    <Col span={18}>
+                    </Col>
                 </Row>
             </div>
         {infoList}
@@ -63,4 +59,5 @@ const GetFilm = (props) => {
         </Fragment>
       );
 }
+
 export default GetFilm;
