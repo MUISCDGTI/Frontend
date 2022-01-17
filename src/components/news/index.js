@@ -349,7 +349,7 @@ function Noticias() {
                         {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
                         { item.relatedMovies === undefined |  item.relatedMovies.length > 0   ?
                         
-                        <><Text type="secondary"> Noticias relacionadas:  {item.relatedMovies}</Text><br /><br /></>
+                        <><Text type="secondary"> Peliculas relacionadas:  {item.relatedMovies.join(", ")}</Text><br /><br /></>
                            : 
                             <></>
                             
