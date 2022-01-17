@@ -36,8 +36,14 @@ function EditFilm(props) {
 
         props.updateFilm(editFilms);
 
+        /*
+        * Se usa un timeout que añade tres segundos de latencia ya que,
+        * al usar las versiones gratis de okteto y mongoatlas la actualización
+        * se realiza mas lenta que la navegación. Y puede dar la sensación de que los
+        * datos no se actualizan.
+        */
         setTimeout(async () => {
-        }, 300);
+        }, 3000);
 
         navigate('/films');
     }
