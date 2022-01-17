@@ -287,7 +287,7 @@ const RatingApp = (props) => {
           <List.Item
             key={rating._id}
             actions={
-              props.page === "user"
+              props.page === "film"
                 ? [
                     <Button
                       type="primary"
