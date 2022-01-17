@@ -5,7 +5,7 @@ import { Menu } from 'antd';
 const CustomHeader = () => {
     return (
         <div>
-            <div className="logo" >
+            <div>
                 Rotten Potatoes
             </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['films']}>
