@@ -36,10 +36,10 @@ class FilmsApi {
     }
 
 
-    static updateRating(film,id) {;
+    static updateFilm(film) {;
         let body = {...film.getFieldsValue()};
     
-        const request = new Request(FilmsApi.API_BASE_URL + "/"+id+"/" + FilmsApi.API_KEY, {
+        const request = new Request(FilmsApi.API_BASE_URL + "/"+film._id+"/" + FilmsApi.API_KEY, {
           method: "PUT",
           body: JSON.stringify(body),
           headers: {

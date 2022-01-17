@@ -2,7 +2,7 @@ import {useState, Fragment} from 'react';
 import {Row, Col, Typography, Input, Form, Button, 
 Slider, Select, DatePicker} from 'antd';
 import {useNavigate} from 'react-router-dom';
-import FilmsApi from '../../components/peliculas/FilmsApi.js';
+import FilmsApi from '../../services/films-service.js';
 const dateFormat = 'YYYY-MM-DD';
 
 function AddFilm(props){
@@ -34,9 +34,6 @@ function AddFilm(props){
         }
         setTimeout(async () => {
           }, 300);
-
-          
-
         setLoading(false);
         useForm.resetFields();
         navigate('/films');
@@ -50,7 +47,7 @@ function AddFilm(props){
             autoComplete="off"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}>
-                <Form.Item name="title" label="Title"
+                <Form.Item name="title" label="Título"
                 rules={[
                   {
                     required: true,
@@ -58,34 +55,34 @@ function AddFilm(props){
                   }
                 ]}
                 >
-                <Input placeholder="Please enter a title" />
+                <Input placeholder="Por favor, introduce un Título" />
                 </Form.Item>
 
-                <Form.Item name="genre" label="Genre" 
+                <Form.Item name="genre" label="Género" 
                 rules={[
                   {
                     required: true,
-                    message: 'Please select at least one genre',
+                    message: 'Por favor, selecciona un género',
                     type: 'array'
                   }
                 ]}
                 >
-                    <Select mode="multiple" placeholder="Please enter the film genres">
-                        <Select.Option value="action">Action</Select.Option>
-                        <Select.Option value="adventure">Adventure</Select.Option>
-                        <Select.Option value="comedy">Comedy</Select.Option>
-                        <Select.Option value="fantasy">Fantasy</Select.Option>
+                    <Select mode="multiple" placeholder="Por favor, selecciona los géneros">
+                        <Select.Option value="action">Acción</Select.Option>
+                        <Select.Option value="adventure">Aventura</Select.Option>
+                        <Select.Option value="comedy">Comedia</Select.Option>
+                        <Select.Option value="fantasy">Fantasía</Select.Option>
                         <Select.Option value="horror">Horror</Select.Option>
                         <Select.Option value="romance">Romance</Select.Option>
-                        <Select.Option value="thriller">Thriller</Select.Option>
+                        <Select.Option value="thriller">Misterio</Select.Option>
                     </Select>
                 </Form.Item>
 
-                <Form.Item name="released_at" label="Released_at"
+                <Form.Item name="released_at" label="Fecha de emisión"
                 rules={[
                     {
                       required: true,
-                      message: 'Please enter release date'
+                      message: 'Por favor, introduce una fecha de emisión'
                     }
                   ]}>
                     <DatePicker format={dateFormat}/>
@@ -99,7 +96,7 @@ function AddFilm(props){
                   }
                 ]}
                 >
-                <Input placeholder="Film poster URL" />
+                <Input placeholder="Url del poster de la película" />
                 </Form.Item>
 
                 <Form.Item name="director" label="Director"
@@ -111,10 +108,10 @@ function AddFilm(props){
                   }
                 ]}
                 >
-                <Input placeholder="Film director" />
+                <Input placeholder="Director de la película" />
                 </Form.Item>
 
-                <Form.Item name="original_language" label="Original Language"
+                <Form.Item name="original_language" label="Idioma Original"
                 rules={[
                   {
                     required: false,
@@ -123,10 +120,10 @@ function AddFilm(props){
                   }
                 ]}
                 >
-                <Input placeholder="Film original language" />
+                <Input placeholder="Idioma original de la película" />
                 </Form.Item>
 
-                <Form.Item name="overview" label="Overview"
+                <Form.Item name="overview" label="Análisis"
                 rules={[
                   {
                     required: false,
@@ -135,16 +132,9 @@ function AddFilm(props){
                   }
                 ]}
                 >
-                <Input placeholder="Film overview" />
+                <Input placeholder="Análisis de la película" />
                 </Form.Item>
 
-                <Form.Item name="rating" label="Rating">
-                  <Slider  min={0}
-                  precision={1}
-                  step={0.1}
-                  max={10} />
-
-                </Form.Item>
                 <div style={{textAlign: "right"}}>
                     <Button type="primary" loading={loading} onClick={onSubmit}>
                         Save
@@ -154,7 +144,7 @@ function AddFilm(props){
                     </Button>
                 </div>
               </Form>
-    )
+    );
 
     return (
         <Fragment>
@@ -162,7 +152,7 @@ function AddFilm(props){
                 <Row gutter={[40, 0]}>
                 <Col span={23}>
                     <Title style={{textAlign: 'center'}} level={2}>
-                    Fill with new film data
+                      Rellena los datos de la película
                     </Title>
                     </Col>
                 </Row>
