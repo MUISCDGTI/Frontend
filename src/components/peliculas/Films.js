@@ -115,38 +115,6 @@ function Films(props){
         setMessage(null);
     }
 
-    function onFilmDelete(film) {
-        setFilms((prevFilms) => {
-            return prevFilms.filter((f) => f.title !== film.title);
-        });
-    }
-
-    function onFilmEdit(newFilm, oldFilm) {
-        const validation = validateFilmTitle(newFilm);
-        if (! validation) {
-            return false;
-        }
-
-        if (newFilm.title !== oldFilm.title) {
-            setMessage('Cannot change title');
-            return false;
-        }
-
-        setFilms((prevFilms) => {
-            const newFilms = prevFilms.map((f) => f.title === oldFilm.title ? newFilm : f);
-            return newFilms
-        })
-
-        return true;
-    }
-
-    function validateFilmTitle(film) {
-        if (film.title === '') {
-            setMessage('A title must be provided');
-            return false;
-        }
-        return true;
-    }
     const handleClick = () => {
         navigate('/addFilm');
     }

@@ -2,10 +2,11 @@ import {useState, Fragment, useEffect} from 'react';
 import {Row, Col, Typography, Button, List} from 'antd';
 import {useNavigate, useParams} from 'react-router-dom';
 import FilmsApi from '../../components/peliculas/FilmsApi.js';
+import RatingApp from '../list-ratings';
 
 const GetFilm = (props) => {
     const { id } = useParams();
-    const [film,setFilm]=useState([]);
+    const [film, setFilm]=useState([]);
 
     const navigate = useNavigate();
     const [Title] = useState(Typography);
@@ -58,6 +59,7 @@ const GetFilm = (props) => {
                         Back
                     </Button>
         </div>
+        <RatingApp page='film' id={id} username='Gustavo' />
         </Fragment>
       );
 }

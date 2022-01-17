@@ -82,7 +82,7 @@ const RatingApp = (props) => {
   const onSubmit = async () => {
     if (isModalVisible) {
       if (isRatingVisible && isDescriptionVisible) {
-        await RatingsService.createRating(useform);
+        await RatingsService.createRating(useform, props.id);
       } else if (isDescriptionVisible && !isRatingVisible) {
         await RatingsService.updateDescription(useform, ratingId);
       } else if (!isDescriptionVisible & isRatingVisible) {

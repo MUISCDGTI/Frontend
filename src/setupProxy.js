@@ -8,4 +8,11 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    '/api/v1/ratings',
+    createProxyMiddleware({
+      target: 'https://api-emiliacoleto.cloud.okteto.net',
+      changeOrigin: true,
+    })
+  );
 };
