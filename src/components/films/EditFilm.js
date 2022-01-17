@@ -7,7 +7,7 @@ function EditFilm(props) {
     const[genre, setGenre] = useState(props.film.genre);
     const[poster, setPoster] = useState(props.film.poster);
     const[director, setDirector] = useState(props.film.director);
-    const[original_language, setOriginal_language] = useState(props.film.original_language);
+    const[original_language, setOriginalLanguage] = useState(props.film.original_language);
     const[overview, setOverview] = useState(props.film.overview);
     
     const { Title } = Typography;
@@ -30,7 +30,7 @@ function EditFilm(props) {
             setGenre('');
             setPoster('');
             setDirector('');
-            setOriginal_language('');
+            setOriginalLanguage('');
             setOverview('');
         }
 
@@ -50,40 +50,21 @@ function EditFilm(props) {
                 layout="horizontal"
             >
                 <Title level={3}
-                    layout="horizontal">Editando película </Title>
+                    layout="horizontal">Editar la película </Title>
                 <Form.Item
                     name="title"
                     label="Título"
                     initialValue={title} 
                     rules={[
-                        { required: true , message:'El título no puede estar vacío' }
+                        { required: false , message:'El título no puede estar vacío' }
                         ,{ type: 'string', min: 4 , message:'El título debe tener al menos 4 caracteres.'}
                 ]}
                 >
                     <Input 
-                    placeholder="Título de la noticia"
+                    placeholder="Título de la película"
                     onChange={(event) => setTitle(event.target.value)}
-                    value={title}  
+                    defaultValues={title}
                     />
-                </Form.Item>
-
-                <Form.Item name="genre" label="Género"
-                rules={[
-                  {
-                    message: 'Por favor, selecciona un género',
-                    type: 'array'
-                  }
-                ]}
-                >
-                    <Select mode="multiple" placeholder="Por favor, selecciona los géneros">
-                        <Select.Option value="action">Acción</Select.Option>
-                        <Select.Option value="adventure">Aventura</Select.Option>
-                        <Select.Option value="comedy">Comedia</Select.Option>
-                        <Select.Option value="fantasy">Fantasía</Select.Option>
-                        <Select.Option value="horror">Horror</Select.Option>
-                        <Select.Option value="romance">Romance</Select.Option>
-                        <Select.Option value="thriller">Misterio</Select.Option>
-                    </Select>
                 </Form.Item>
 
                 <Form.Item name="poster" label="Poster" initialValue={poster} 
@@ -95,9 +76,54 @@ function EditFilm(props) {
                 ]}
                 >
                 <Input 
-                    placeholder="Url del poster de la película"
-                    value={poster}  
-                    onChange={(event) => setPoster(event.target.value)} 
+                    placeholder="Url del poster de la película" 
+                    onChange={(event) => setPoster(event.target.value)}
+                    defaultValues={poster}
+                />
+                </Form.Item>
+
+                <Form.Item name="director" label="Director" initialValue={director} 
+                rules={[
+                  {
+                    required: false,
+                    type:"string"
+                  }
+                ]}
+                >
+                <Input 
+                    placeholder="Director de la película" 
+                    onChange={(event) => setDirector(event.target.value)}
+                    defaultValues={director}
+                />
+                </Form.Item>
+
+                <Form.Item name="original_language" label="Idioma Original" initialValue={original_language} 
+                rules={[
+                  {
+                    required: false,
+                    type:"string"
+                  }
+                ]}
+                >
+                <Input 
+                    placeholder="Idioma original de la película" 
+                    onChange={(event) => setOriginalLanguage(event.target.value)}
+                    defaultValues={original_language}
+                />
+                </Form.Item>
+
+                <Form.Item name="overview" label="Análisis" initialValue={overview} 
+                rules={[
+                  {
+                    required: false,
+                    type:"string"
+                  }
+                ]}
+                >
+                <Input 
+                    placeholder="Análisis de la película" 
+                    onChange={(event) => setOverview(event.target.value)}
+                    defaultValues={overview}
                 />
                 </Form.Item>
 
