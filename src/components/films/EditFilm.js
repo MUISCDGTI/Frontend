@@ -26,7 +26,7 @@ function EditFilm(props) {
         const result = props.updateFilm(editFilms);
 
         if (result) {
-            setTitle('');
+            setTitle(title);
             setGenre('');
             setPoster('');
             setDirector('');
@@ -35,6 +35,9 @@ function EditFilm(props) {
         }
 
         props.updateFilm(editFilms);
+
+        setTimeout(async () => {
+        }, 300);
 
         navigate('/films');
     }
@@ -58,9 +61,10 @@ function EditFilm(props) {
                 ]}
                 >
                     <Input 
-                    placeholder="Título de la noticia" 
+                    placeholder="Título de la noticia"
+                    onChange={(event) => setTitle(event.target.value)}
                     value={title}  
-                    onChange={(event) => setTitle(event.target.value)}/>
+                    />
                 </Form.Item>
 
                 <Form.Item name="genre" label="Género"
