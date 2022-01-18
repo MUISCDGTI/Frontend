@@ -82,7 +82,7 @@ class Login extends Component {
             />
             <br />
             <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Iniciar Sesión</button>
-
+            <br/><br/>
             <button className="btn btn-primary" onClick={() => this.onClickRegistrar()}>Registrar usuario</button>
           </div>
         </div>
