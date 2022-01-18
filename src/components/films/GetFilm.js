@@ -4,8 +4,10 @@ import {useNavigate, useParams} from 'react-router-dom';
 import FilmsApi from '../../services/films-service.js';
 import RatingApp from '../ratings';
 import EditFilm from './EditFilm.js';
+import Cookies from 'universal-cookie';
 
 const GetFilm = () => {
+    const cookies = new Cookies();
     const { id } = useParams();
     const [film, setFilm]=useState([]);
     const [newsList, setNewsList] = useState([]);
@@ -81,7 +83,7 @@ const GetFilm = () => {
                         Back
                     </Button>
         </div>
-        <RatingApp page='film' id={id} username='Gustavo' />
+        <RatingApp page='film' id={id} username={cookies.get('username')} />
         </Fragment>
       );
 }
