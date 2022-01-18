@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import MainPage from '../pages/index';
 import LoginPage from '../pages/login';
 import PerfilPage from '../pages/perfil';
+import RegistroPage from '../pages/registro';
 import NewsList from '../pages/news';
 import AddFilmPage from '../pages/addFilm';
 import GetFilmPage from '../pages/getFilm';
@@ -35,6 +36,9 @@ function Router() {
                     </Route>
 
                     <Route path="/perfil"  element={<PerfilPage/>}> 
+                    </Route>
+
+                    <Route path="/registro"  element={<RegistroPage/>}> 
                     </Route>
 
                 </Routes>

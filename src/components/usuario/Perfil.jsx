@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './Perfil.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-const baseUrl="https://api-gfpedro.cloud.okteto.net/logout";
 const cookies = new Cookies();
 
     class Perfil extends Component {
@@ -29,7 +27,11 @@ const cookies = new Cookies();
             console.log('email: '+cookies.get('email'));
             return (
                 <div>
-                    Perfil usuario
+                    <h1> {cookies.get('username')} </h1>
+            <h3> Email: {cookies.get('email')} </h3>
+
+            <br/><br/>
+            <button onClick={()=>this.cerrarSesion()}>Eliminar usuario</button>
     
                     <br />
                     <button onClick={()=>this.cerrarSesion()}>Cerrar Sesión</button>

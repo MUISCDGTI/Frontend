@@ -7,7 +7,9 @@ import Cookies from 'universal-cookie';
 const baseUrl="https://api-gfpedro.cloud.okteto.net/login";
 const cookies = new Cookies();
 
+
 class Login extends Component {
+    
     state={
         form:{
             username: '',
@@ -45,6 +47,10 @@ class Login extends Component {
 
     }
 
+    onClickRegistrar() {
+        window.location.href="./registro";
+    };
+
     componentDidMount() {
         if(cookies.get('username')){
             window.location.href="./perfil";
@@ -76,6 +82,8 @@ class Login extends Component {
             />
             <br />
             <button className="btn btn-primary" onClick={()=> this.iniciarSesion()}>Iniciar Sesión</button>
+
+            <button className="btn btn-primary" onClick={() => this.onClickRegistrar()}>Registrar usuario</button>
           </div>
         </div>
       </div>

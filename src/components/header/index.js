@@ -18,7 +18,7 @@ function CustomHeader () {
     };
 
     function onClickUsuario() {
-        if(cookies.get('username')){
+        if(!cookies.get('username')){
         navigate('/usuario');
         }
         if(cookies.get('username')){
