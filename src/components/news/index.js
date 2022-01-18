@@ -352,7 +352,7 @@ function Noticias() {
                         <br/><br/>
 
 
-                        {item.createdAt === undefined ? <></>:<><Text type="secondary"> Noticia creada el {(item.createdAt).replace("T", " a las ").replace("Z","").split(".")[0]} por {item.author}</Text><br /><br /></>}
+                        {item.createdAt === undefined || typeof(item.createdAt) !== 'string' ? <></>:<><Text type="secondary"> Noticia creada el {(item.createdAt).replace("T", " a las ").replace("Z","").split(".")[0]} por {item.author}</Text><br /><br /></>}
                         { item.relatedMovies === undefined |  item.relatedMovies.length > 0   ?
                         
                         <><Text type="secondary"> Peliculas relacionadas:  {item.relatedMovies.join(", ")}</Text><br /><br /></>
