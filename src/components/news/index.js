@@ -352,7 +352,7 @@ function Noticias() {
                         <br/><br/>
 
 
-                        {<><Text type="secondary"> Noticia creada el {(item.createdAt).format('DD [deñ] MM [de] YYYY')} por {item.author}</Text><br /><br /></>}
+                        {<><Text type="secondary"> Noticia creada el {(item.createdAt).replace("T", " a las ").replace("Z","")} por {item.author}</Text><br /><br /></>}
                         { item.relatedMovies === undefined |  item.relatedMovies.length > 0   ?
                         
                         <><Text type="secondary"> Peliculas relacionadas:  {item.relatedMovies.join(", ")}</Text><br /><br /></>
