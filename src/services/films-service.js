@@ -80,9 +80,29 @@ class FilmsApi {
             body: JSON.stringify(body),
         });
 
-        /*let response = fetch(request).catch((err) => console.log(err));
-        return response.json();*/
-        fetch(request).catch((err) => console.log(err))
+        return fetch(request).catch((err) => console.log(err));
+    }
+
+    static async postSuscription(film_id) {
+
+        console.log("id recibida en el postSuscription del servicio: "+film_id);
+
+        // post al microservicio suscriptions
+        let url = "/api/v1/notifications?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Impvc2UiLCJpYXQiOjE2NDI0MTc3MDZ9.27_J8BZ0ngW3vD7TOaV8cRZol4t8E01-rCWwnhZT-ZI";
+        const request = new Request(url, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+              },
+            body: {
+                "category" : "Pelicula",
+                "referenceId": film_id
+            },
+            json: true
+        });
+
+        return fetch(request).catch((err) => console.log(err));
+        
     }
 }
 

@@ -15,4 +15,12 @@ module.exports = function(app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    '/api/v1/notifications',
+    createProxyMiddleware({
+      target: 'https://suscripciones-amaliof96.cloud.okteto.net',
+      changeOrigin: true,
+    })
+  );
+  
 };

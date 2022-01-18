@@ -24,11 +24,46 @@ function AddFilm(props){
       const onSubmit = async () => {
         setLoading(true);
         try{
-            let res = await FilmsApi.postFilm(useForm);
-            console.log(res);
-            if(res.status===201){
-                navigate('/films');
+            let response = await FilmsApi.postFilm(useForm);
+
+            if (response.status===201) { 
+
+              let json = await response.json();
+              console.log("id: "+json._id);
+
+              // post a suscriptions
+              let suscriptions_response = await FilmsApi.postSuscription(json._id);
+
+              if (suscriptions_response.status===204) {
+                  console.log("suscripcion creada");
+              }else {
+                console.log("HTTP-Error ON SUSCRIPTIONS SERVICE: " + suscriptions_response.status);
+              }
+
+            } else {
+              console.log("HTTP-Error ON FILMS SERVICE: " + response.status);
             }
+
+            navigate('/films');
+
+/*
+
+            let json = await response.json();
+
+            console.log("film_created from Service: "+film_created);
+            console.log("film_created from Service JSONN: "+film_created.json());
+            if(film_created.status===201){
+
+              console.log("film_created_title: "+film_created.body.title);
+
+              //await FilmsApi.postSuscription(film_created);
+
+              navigate('/films');
+
+              
+            }
+
+          */
         } catch(error){
             console.log("No se ha podido conectar con el servidor " + error);
         }
