@@ -59,7 +59,13 @@ function Noticias() {
         fetchData();
     }, []);
     
-    
+    function formatDate(date) {
+
+        return date.getDay() + " de " + date.toLocaleString('default', { month: 'long' }) + " del " 
+        + date.getFullYear() + " a las " + date.getHours() + ":" + date.getMinutes();
+
+    }
+
     function formatReviews(reviews) {
         console.log("FORMATEANDO")
         console.log(reviews)
@@ -346,7 +352,7 @@ function Noticias() {
                         <br/><br/>
 
 
-                        {<><Text type="secondary"> Noticia creada el {item.createdAtFormat} por {item.author}</Text><br /><br /></>}
+                        {<><Text type="secondary"> Noticia creada el {item.createdAt} por {item.author}</Text><br /><br /></>}
                         { item.relatedMovies === undefined |  item.relatedMovies.length > 0   ?
                         
                         <><Text type="secondary"> Peliculas relacionadas:  {item.relatedMovies.join(", ")}</Text><br /><br /></>
