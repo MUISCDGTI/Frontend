@@ -1,0 +1,11 @@
+.container-menu{
+    display:inline-flex;
+}
+
+.lista{
+    margin-left: 20px;
+}
+
+.title{
+    color: #FFFFFF;
+}

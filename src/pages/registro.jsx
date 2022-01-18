@@ -1,32 +1,26 @@
 import 'antd/dist/antd.css';
-import './index.css';
-import { Layout, Breadcrumb } from 'antd';
-import Noticias from '../components/news';
+import './registro.css';
+import { Layout } from 'antd';
 import CustomHeader from '../components/header';
-import EtiquetaGenero from '../components/etiquetaGenero';
-
-import Films from '../components/films/Films.js';
+import Registro from '../components/usuario/Registro.jsx';
 
 const { Header, Content, Footer } = Layout;
 
-const MainPage = () => {
+const RegistroPage = () => {
     return (
         <Layout className="layout">
             <Header>
                 <CustomHeader />
             </Header>
             <Content style={{ padding: '0 50px' }}>
-                
                 <div className="site-layout-content">
 
-                <Films />
+                <Registro />
 
                 </div>
-
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
     );
 }
-
-export default MainPage;
+export default RegistroPage;
