@@ -83,10 +83,10 @@ class RatingsService {
     return response.json();
   }
 
-  static createRating(rating, id) {;
+  static createRating(rating, id, user_id) {;
     let body = {...rating.getFieldsValue()};
     body['film'] = id;
-    body['user'] = 11;
+    body['user'] = user_id;
     body['date'] = moment(new Date());
 
     const request = new Request(RatingsService.API_BASE_URL + "/?" + RatingsService.API_KEY, {

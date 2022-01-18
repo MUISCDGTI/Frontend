@@ -14,12 +14,15 @@ import {
   Modal,
   InputNumber,
 } from "antd";
+import Cookies from 'universal-cookie';
 import { DownOutlined } from "@ant-design/icons";
 import "./index.css";
 import moment from "moment";
 import RatingsService from "../../services/ratings-service";
 
 const RatingApp = (props) => {
+  const cookies = new Cookies();
+
   const [ratings, setRatings] = useState([]);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -82,7 +85,7 @@ const RatingApp = (props) => {
   const onSubmit = async () => {
     if (isModalVisible) {
       if (isRatingVisible && isDescriptionVisible) {
-        await RatingsService.createRating(useform, props.id);
+        await RatingsService.createRating(useform, props.id, cookies.get('id'));
       } else if (isDescriptionVisible && !isRatingVisible) {
         await RatingsService.updateDescription(useform, ratingId);
       } else if (!isDescriptionVisible & isRatingVisible) {
@@ -242,9 +245,12 @@ const RatingApp = (props) => {
   return (
     <div className="list">
       <h2 className="list-header">Valoraciones</h2>
-      <Button type="primary" onClick={showModal}>
-        Crear
-      </Button>
+      { props.page == "film"? (
+        <Button type="primary" onClick={showModal}>
+          Crear
+        </Button>
+      ) : null }
+      <p></p>
       {modal}
       <Collapse>
         <Panel header="Filtros">
@@ -287,7 +293,7 @@ const RatingApp = (props) => {
           <List.Item
             key={rating._id}
             actions={
-              props.page === "film"
+              props.page == "film" || props.page == "user"
                 ? [
                     <Button
                       type="primary"

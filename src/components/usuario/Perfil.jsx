@@ -4,6 +4,7 @@ import {Table, Row, Col, Button, Typography, Tag, Space} from 'antd';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import RatingApp from '../ratings';
 
 
 const baseUrl = "https://api-gfpedro.cloud.okteto.net/api/v1/users/";
@@ -63,6 +64,8 @@ const cookies = new Cookies();
     
             <br/><br/>
                     <button onClick={()=>this.cerrarSesion()}>Cerrar Sesión</button>
+            <br/><br/>
+                    <RatingApp page='user' id={cookies.get('id')} username={cookies.get('username')} />
                 </div>
             );
         }
