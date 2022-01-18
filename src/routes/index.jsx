@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
-import Noticias from '../components/news';
 
 
 
 // require normalized overrides
 import MainPage from '../pages/index';
+import LoginPage from '../pages/login';
+import PerfilPage from '../pages/perfil';
 import NewsList from '../pages/news';
 import AddFilmPage from '../pages/addFilm';
 import GetFilmPage from '../pages/getFilm';
@@ -28,6 +29,12 @@ function Router() {
                     </Route>
 
                     <Route path="/films"  element={<MainPage/>}> 
+                    </Route>
+
+                    <Route path="/usuario"  element={<LoginPage/>}> 
+                    </Route>
+
+                    <Route path="/perfil"  element={<PerfilPage/>}> 
                     </Route>
 
                 </Routes>
